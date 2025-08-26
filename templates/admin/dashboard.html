@@ -15,7 +15,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-text-medium font-dm-sans text-sm">Total Users</p>
-                    <p class="text-3xl font-bold font-dm-sans text-text-dark">{{ users|length }}</p>
+                    <p class="text-3xl font-bold font-dm-sans text-text-dark">{{ total_users }}</p>
                 </div>
                 <div class="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center">
                     <i class="fas fa-users text-white text-xl"></i>
@@ -27,7 +27,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-text-medium font-dm-sans text-sm">Total Appointments</p>
-                    <p class="text-3xl font-bold font-dm-sans text-text-dark">{{ appointments|length }}</p>
+                    <p class="text-3xl font-bold font-dm-sans text-text-dark">{{ total_appointments }}</p>
                 </div>
                 <div class="w-12 h-12 bg-gradient-accent rounded-xl flex items-center justify-center">
                     <i class="fas fa-calendar text-white text-xl"></i>
@@ -39,7 +39,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-text-medium font-dm-sans text-sm">Pending Appointments</p>
-                    <p class="text-3xl font-bold font-dm-sans text-text-dark">{{ pending_count }}</p>
+                    <p class="text-3xl font-bold font-dm-sans text-text-dark">{{ pending_appointments }}</p>
                 </div>
                 <div class="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center">
                     <i class="fas fa-clock text-white text-xl"></i>
@@ -68,14 +68,14 @@
                 <h2 class="text-2xl font-bold font-dm-sans text-text-dark">Recent Appointments</h2>
             </div>
             <div class="p-6">
-                {% if appointments %}
+                {% if recent_appointments %}
                     <div class="space-y-4">
-                        {% for appointment in appointments[:5] %}
+                        {% for appointment in recent_appointments %}
                         <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
                             <div>
                                 <p class="font-semibold font-dm-sans text-text-dark">{{ appointment.user.first_name }} {{ appointment.user.last_name }}</p>
-                                <p class="text-sm text-text-medium font-dm-sans">{{ appointment.service_type }}</p>
-                                <p class="text-sm text-text-medium font-dm-sans">{{ appointment.appointment_date.strftime('%Y-%m-%d %H:%M') }}</p>
+                                <p class="text-sm text-text-medium font-dm-sans">{{ appointment.service }}</p>
+                                <p class="text-sm text-text-medium font-dm-sans">{{ appointment.date }} {{ appointment.time }}</p>
                             </div>
                             <div class="flex items-center space-x-2">
                                 <!-- Status Badge -->
@@ -129,9 +129,9 @@
                 <h2 class="text-2xl font-bold font-dm-sans text-text-dark">Recent Users</h2>
             </div>
             <div class="p-6">
-                {% if users %}
+                {% if recent_users %}
                     <div class="space-y-4">
-                        {% for user in users[:5] %}
+                        {% for user in recent_users %}
                         <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
                             <div>
                                 <p class="font-semibold font-dm-sans text-text-dark">{{ user.first_name }} {{ user.last_name }}</p>

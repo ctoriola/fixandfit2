@@ -237,14 +237,25 @@ class FirebaseDB:
         
         try:
             appointments = []
-            docs = self.db.collection('appointments').order_by('created_at', direction=firestore.Query.DESCENDING).limit(limit).get()
+            print(f"Firebase: Getting recent appointments (limit: {limit})")
+            # Remove order_by to avoid index requirement, then sort in Python
+            docs = self.db.collection('appointments').get()
+            print(f"Firebase: Found {len(docs)} total appointments")
+            
+            # Convert to list and sort by created_at
+            all_appointments = []
             for doc in docs:
                 appointment_data = doc.to_dict()
                 appointment_data['id'] = doc.id
                 # Get user data for this appointment
                 user_data = self.get_user_by_id(appointment_data['user_id'])
                 appointment_data['user'] = user_data
-                appointments.append(appointment_data)
+                all_appointments.append(appointment_data)
+            
+            # Sort by created_at descending and take limit
+            all_appointments.sort(key=lambda x: x.get('created_at', datetime.min), reverse=True)
+            appointments = all_appointments[:limit]
+            print(f"Firebase: Returning {len(appointments)} recent appointments")
             return appointments
         except Exception as e:
             print(f"Error getting recent appointments: {e}")

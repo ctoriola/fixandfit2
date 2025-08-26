@@ -208,11 +208,16 @@ def education():
 @login_required
 @admin_required
 def admin_dashboard():
+    print("Admin Dashboard: Loading data...")
     total_users = firebase_db.get_user_count()
     total_appointments = firebase_db.get_appointment_count()
     pending_appointments = firebase_db.get_pending_appointments_count()
     recent_appointments = firebase_db.get_recent_appointments(5)
     recent_users = firebase_db.get_all_users()[:5]  # Get first 5 users
+    
+    print(f"Admin Dashboard: Stats - Users: {total_users}, Appointments: {total_appointments}, Pending: {pending_appointments}")
+    print(f"Admin Dashboard: Recent appointments count: {len(recent_appointments)}")
+    print(f"Admin Dashboard: Recent users count: {len(recent_users)}")
     
     return render_template('admin/dashboard.html', 
                          total_users=total_users,
