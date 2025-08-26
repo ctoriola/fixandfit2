@@ -195,10 +195,6 @@ def education():
     articles = []
     return render_template('education.html', articles=articles)
 
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
 # Admin routes
 @app.route('/admin/dashboard')
 @login_required
