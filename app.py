@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from datetime import datetime
 from functools import wraps
-from firebase_config import firebase_storage
+from aws_storage import aws_storage
 from firebase_db import firebase_db
 
 app = Flask(__name__)
@@ -158,8 +158,8 @@ def book_appointment():
                     filename = secure_filename(file.filename)
                     unique_filename = f"{uuid.uuid4()}_{filename}"
                     
-                    # Upload to Firebase Storage
-                    attachment_url = firebase_storage.upload_file(
+                    # Upload to AWS S3
+                    attachment_url = aws_storage.upload_file(
                         file, 
                         unique_filename, 
                         folder='appointments'
