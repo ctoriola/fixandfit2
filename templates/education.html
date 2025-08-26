@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Education - Fix and Fit{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-blue-600 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+        <h1 class="text-4xl font-bold mb-4">Educational Resources</h1>
+        <p class="text-xl">Learn about prosthetics, orthotics, and mobility solutions</p>
+    </div>
+</section>
+
+<!-- Articles Section -->
+<section class="py-16">
+    <div class="max-w-7xl mx-auto px-4">
+        {% if articles %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for article in articles %}
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-3">{{ article.title }}</h3>
+                            <p class="text-gray-600 mb-4">{{ article.content[:150] }}...</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-500">{{ article.created_at.strftime('%B %d, %Y') }}</span>
+                                <a href="{{ url_for('article_detail', article_id=article.id) }}" 
+                                   class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300">
+                                    Read More
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center py-12">
+                <i class="fas fa-book text-6xl text-gray-400 mb-4"></i>
+                <h2 class="text-2xl font-semibold text-gray-600 mb-2">No articles available yet</h2>
+                <p class="text-gray-500">Check back soon for educational content</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

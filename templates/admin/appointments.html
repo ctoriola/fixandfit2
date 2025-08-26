@@ -1,0 +1,400 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Appointments - Fix and Fit{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+    <div class="mb-8">
+        <h1 class="text-4xl font-bold font-dm-sans text-text-dark mb-2">Manage Appointments</h1>
+        <p class="text-text-medium font-dm-sans">View and manage all appointment bookings</p>
+    </div>
+
+    <!-- Filter Options -->
+    <div class="bg-white rounded-2xl shadow-card p-6 mb-8">
+        <div class="flex flex-wrap gap-4 items-center">
+            <div>
+                <label class="block text-sm font-medium font-dm-sans text-text-dark mb-1">Status Filter</label>
+                <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-dm-sans">
+                    <option value="">All Statuses</option>
+                    <option value="pending">Pending</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="completed">Completed</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-medium font-dm-sans text-text-dark mb-1">Service Type</label>
+                <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-dm-sans">
+                    <option value="">All Services</option>
+                    <option value="Prosthetics Consultation">Prosthetics</option>
+                    <option value="Orthotics Consultation">Orthotics</option>
+                    <option value="Podorthotics Consultation">Podorthotics</option>
+                    <option value="Fitting Appointment">Fitting</option>
+                    <option value="Follow-up Visit">Follow-up</option>
+                    <option value="Repair Service">Repair</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-medium font-dm-sans text-text-dark mb-1">Date Range</label>
+                <input type="date" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-dm-sans">
+            </div>
+            <div class="flex items-end">
+                <button class="bg-gradient-primary text-white px-6 py-2 rounded-lg font-dm-sans font-medium hover:shadow-soft transition-all">
+                    <i class="fas fa-filter mr-2"></i>Apply Filters
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Appointments Table -->
+    <div class="bg-white rounded-2xl shadow-card overflow-hidden">
+        <div class="p-6 border-b border-gray-100">
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-bold font-dm-sans text-text-dark">All Appointments ({{ appointments|length }})</h2>
+                <div class="flex space-x-3">
+                    <button class="bg-green-500 text-white px-4 py-2 rounded-lg font-dm-sans font-medium hover:bg-green-600 transition-colors">
+                        <i class="fas fa-download mr-2"></i>Export
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-4 text-left text-sm font-semibold font-dm-sans text-text-dark">Patient</th>
+                        <th class="px-6 py-4 text-left text-sm font-semibold font-dm-sans text-text-dark">Service</th>
+                        <th class="px-6 py-4 text-left text-sm font-semibold font-dm-sans text-text-dark">Date & Time</th>
+                        <th class="px-6 py-4 text-left text-sm font-semibold font-dm-sans text-text-dark">Status</th>
+                        <th class="px-6 py-4 text-left text-sm font-semibold font-dm-sans text-text-dark">Notes</th>
+                        <th class="px-6 py-4 text-left text-sm font-semibold font-dm-sans text-text-dark">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    {% for appointment in appointments %}
+                    <tr class="hover:bg-gray-50 transition-colors">
+                        <td class="px-6 py-4">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center text-white font-bold font-dm-sans mr-3">
+                                    {{ appointment.user.first_name[0] }}{{ appointment.user.last_name[0] }}
+                                </div>
+                                <div>
+                                    <p class="font-semibold font-dm-sans text-text-dark">{{ appointment.user.first_name }} {{ appointment.user.last_name }}</p>
+                                    <p class="text-sm text-text-medium font-dm-sans">{{ appointment.user.email }}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <p class="font-dm-sans text-text-dark">{{ appointment.service_type }}</p>
+                        </td>
+                        <td class="px-6 py-4">
+                            <p class="font-dm-sans text-text-dark">{{ appointment.appointment_date.strftime('%Y-%m-%d') }}</p>
+                            <p class="text-sm text-text-medium font-dm-sans">{{ appointment.appointment_date.strftime('%H:%M') }}</p>
+                        </td>
+                        <td class="px-6 py-4">
+                            {% if appointment.status == 'pending' %}
+                                <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-lg text-sm font-dm-sans font-medium">Pending</span>
+                            {% elif appointment.status == 'confirmed' %}
+                                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-lg text-sm font-dm-sans font-medium">Confirmed</span>
+                            {% elif appointment.status == 'completed' %}
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-lg text-sm font-dm-sans font-medium">Completed</span>
+                            {% elif appointment.status == 'cancelled' %}
+                                <span class="bg-red-100 text-red-800 px-3 py-1 rounded-lg text-sm font-dm-sans font-medium">Cancelled</span>
+                            {% else %}
+                                <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-lg text-sm font-dm-sans font-medium">{{ appointment.status|title }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4">
+                            {% if appointment.notes %}
+                                <p class="font-dm-sans text-text-dark text-sm truncate max-w-xs" title="{{ appointment.notes }}">{{ appointment.notes }}</p>
+                            {% else %}
+                                <span class="text-text-medium font-dm-sans text-sm">No notes</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex space-x-2">
+                                {% if appointment.status == 'pending' %}
+                                <form method="POST" action="{{ url_for('update_appointment_status', appointment_id=appointment.id) }}" style="display: inline;">
+                                    <input type="hidden" name="status" value="confirmed">
+                                    <button type="submit" class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm font-dm-sans hover:bg-green-600 transition-colors">
+                                        <i class="fas fa-check mr-1"></i>Confirm
+                                    </button>
+                                </form>
+                                <form method="POST" action="{{ url_for('update_appointment_status', appointment_id=appointment.id) }}" style="display: inline;">
+                                    <input type="hidden" name="status" value="cancelled">
+                                    <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-lg text-sm font-dm-sans hover:bg-red-600 transition-colors">
+                                        <i class="fas fa-times mr-1"></i>Cancel
+                                    </button>
+                                </form>
+                                {% elif appointment.status == 'confirmed' %}
+                                <form method="POST" action="{{ url_for('update_appointment_status', appointment_id=appointment.id) }}" style="display: inline;">
+                                    <input type="hidden" name="status" value="completed">
+                                    <button type="submit" class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm font-dm-sans hover:bg-blue-600 transition-colors">
+                                        <i class="fas fa-check-circle mr-1"></i>Complete
+                                    </button>
+                                </form>
+                                {% endif %}
+                                <button onclick="openAppointmentModal({{ appointment.id }})" class="bg-gray-500 text-white px-3 py-1 rounded-lg text-sm font-dm-sans hover:bg-gray-600 transition-colors" 
+                                        data-patient-name="{{ appointment.user.first_name }} {{ appointment.user.last_name }}"
+                                        data-patient-email="{{ appointment.user.email }}"
+                                        data-service-type="{{ appointment.service_type }}"
+                                        data-appointment-date="{{ appointment.appointment_date.strftime('%Y-%m-%d %H:%M') }}"
+                                        data-status="{{ appointment.status }}"
+                                        data-notes="{{ appointment.notes if appointment.notes else '' }}"
+                                        data-created-at="{{ appointment.created_at.strftime('%Y-%m-%d %H:%M') if appointment.created_at else 'N/A' }}">
+                                    <i class="fas fa-eye mr-1"></i>View
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        {% if not appointments %}
+        <div class="p-12 text-center">
+            <i class="fas fa-calendar-times text-6xl text-gray-300 mb-4"></i>
+            <p class="text-xl font-dm-sans text-text-medium">No appointments found</p>
+            <p class="text-text-medium font-dm-sans mt-2">Appointments will appear here once users start booking</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Appointment Statistics -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8">
+        <div class="bg-white rounded-2xl p-6 shadow-card">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-text-medium font-dm-sans text-sm">Total Appointments</p>
+                    <p class="text-3xl font-bold font-dm-sans text-text-dark">{{ appointments|length }}</p>
+                </div>
+                <div class="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center">
+                    <i class="fas fa-calendar text-white text-xl"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-6 shadow-card">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-text-medium font-dm-sans text-sm">Pending</p>
+                    <p class="text-3xl font-bold font-dm-sans text-text-dark">{{ appointments|selectattr('status', 'equalto', 'pending')|list|length }}</p>
+                </div>
+                <div class="w-12 h-12 bg-yellow-500 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-clock text-white text-xl"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-6 shadow-card">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-text-medium font-dm-sans text-sm">Confirmed</p>
+                    <p class="text-3xl font-bold font-dm-sans text-text-dark">{{ appointments|selectattr('status', 'equalto', 'confirmed')|list|length }}</p>
+                </div>
+                <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-check text-white text-xl"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-6 shadow-card">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-text-medium font-dm-sans text-sm">Completed</p>
+                    <p class="text-3xl font-bold font-dm-sans text-text-dark">{{ appointments|selectattr('status', 'equalto', 'completed')|list|length }}</p>
+                </div>
+                <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-check-circle text-white text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Dashboard -->
+    <div class="mt-8">
+        <a href="{{ url_for('admin_dashboard') }}" class="inline-flex items-center text-primary font-dm-sans font-medium hover:text-primary-light transition-colors">
+            <i class="fas fa-arrow-left mr-2"></i>
+            Back to Admin Dashboard
+        </a>
+    </div>
+</div>
+
+<!-- Appointment Details Modal -->
+<div id="appointmentModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+    <div class="bg-white rounded-2xl shadow-card max-w-2xl w-full mx-4 max-h-screen overflow-y-auto">
+        <div class="p-6 border-b border-gray-100">
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-bold font-dm-sans text-text-dark">Appointment Details</h2>
+                <button onclick="closeAppointmentModal()" class="text-gray-500 hover:text-gray-700 transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="p-6 space-y-6">
+            <!-- Patient Information -->
+            <div class="bg-gray-50 rounded-xl p-4">
+                <h3 class="text-lg font-semibold font-dm-sans text-text-dark mb-3">Patient Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium font-dm-sans text-text-medium mb-1">Full Name</label>
+                        <p id="modalPatientName" class="font-dm-sans text-text-dark"></p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium font-dm-sans text-text-medium mb-1">Email Address</label>
+                        <p id="modalPatientEmail" class="font-dm-sans text-text-dark"></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Appointment Information -->
+            <div class="bg-gray-50 rounded-xl p-4">
+                <h3 class="text-lg font-semibold font-dm-sans text-text-dark mb-3">Appointment Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium font-dm-sans text-text-medium mb-1">Service Type</label>
+                        <p id="modalServiceType" class="font-dm-sans text-text-dark"></p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium font-dm-sans text-text-medium mb-1">Date & Time</label>
+                        <p id="modalAppointmentDate" class="font-dm-sans text-text-dark"></p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium font-dm-sans text-text-medium mb-1">Status</label>
+                        <span id="modalStatus" class="px-3 py-1 rounded-lg text-sm font-dm-sans font-medium"></span>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium font-dm-sans text-text-medium mb-1">Booking Date</label>
+                        <p id="modalCreatedAt" class="font-dm-sans text-text-dark"></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Notes Section -->
+            <div class="bg-gray-50 rounded-xl p-4">
+                <h3 class="text-lg font-semibold font-dm-sans text-text-dark mb-3">Additional Notes</h3>
+                <div id="modalNotesContainer">
+                    <p id="modalNotes" class="font-dm-sans text-text-dark whitespace-pre-wrap"></p>
+                    <p id="modalNoNotes" class="font-dm-sans text-text-medium italic hidden">No additional notes provided</p>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap gap-3 pt-4 border-t border-gray-100">
+                <button id="modalConfirmBtn" onclick="updateAppointmentStatus('confirmed')" class="bg-green-500 text-white px-4 py-2 rounded-lg font-dm-sans font-medium hover:bg-green-600 transition-colors hidden">
+                    <i class="fas fa-check mr-2"></i>Confirm Appointment
+                </button>
+                <button id="modalCompleteBtn" onclick="updateAppointmentStatus('completed')" class="bg-blue-500 text-white px-4 py-2 rounded-lg font-dm-sans font-medium hover:bg-blue-600 transition-colors hidden">
+                    <i class="fas fa-check-circle mr-2"></i>Mark Complete
+                </button>
+                <button id="modalCancelBtn" onclick="updateAppointmentStatus('cancelled')" class="bg-red-500 text-white px-4 py-2 rounded-lg font-dm-sans font-medium hover:bg-red-600 transition-colors hidden">
+                    <i class="fas fa-times mr-2"></i>Cancel Appointment
+                </button>
+                <button onclick="closeAppointmentModal()" class="bg-gray-500 text-white px-4 py-2 rounded-lg font-dm-sans font-medium hover:bg-gray-600 transition-colors">
+                    <i class="fas fa-times mr-2"></i>Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentAppointmentId = null;
+
+function openAppointmentModal(appointmentId) {
+    const button = event.target.closest('button');
+    currentAppointmentId = appointmentId;
+    
+    // Get data from button attributes
+    const patientName = button.getAttribute('data-patient-name');
+    const patientEmail = button.getAttribute('data-patient-email');
+    const serviceType = button.getAttribute('data-service-type');
+    const appointmentDate = button.getAttribute('data-appointment-date');
+    const status = button.getAttribute('data-status');
+    const notes = button.getAttribute('data-notes');
+    const createdAt = button.getAttribute('data-created-at');
+    
+    // Populate modal fields
+    document.getElementById('modalPatientName').textContent = patientName;
+    document.getElementById('modalPatientEmail').textContent = patientEmail;
+    document.getElementById('modalServiceType').textContent = serviceType;
+    document.getElementById('modalAppointmentDate').textContent = appointmentDate;
+    document.getElementById('modalCreatedAt').textContent = createdAt;
+    
+    // Set status with appropriate styling
+    const statusElement = document.getElementById('modalStatus');
+    statusElement.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+    statusElement.className = 'px-3 py-1 rounded-lg text-sm font-dm-sans font-medium ';
+    
+    switch(status) {
+        case 'pending':
+            statusElement.className += 'bg-yellow-100 text-yellow-800';
+            break;
+        case 'confirmed':
+            statusElement.className += 'bg-green-100 text-green-800';
+            break;
+        case 'completed':
+            statusElement.className += 'bg-blue-100 text-blue-800';
+            break;
+        case 'cancelled':
+            statusElement.className += 'bg-red-100 text-red-800';
+            break;
+        default:
+            statusElement.className += 'bg-gray-100 text-gray-800';
+    }
+    
+    // Handle notes
+    if (notes && notes.trim()) {
+        document.getElementById('modalNotes').textContent = notes;
+        document.getElementById('modalNotes').classList.remove('hidden');
+        document.getElementById('modalNoNotes').classList.add('hidden');
+    } else {
+        document.getElementById('modalNotes').classList.add('hidden');
+        document.getElementById('modalNoNotes').classList.remove('hidden');
+    }
+    
+    // Show/hide action buttons based on status
+    document.getElementById('modalConfirmBtn').classList.toggle('hidden', status !== 'pending');
+    document.getElementById('modalCompleteBtn').classList.toggle('hidden', status !== 'confirmed');
+    document.getElementById('modalCancelBtn').classList.toggle('hidden', status === 'cancelled' || status === 'completed');
+    
+    // Show modal
+    document.getElementById('appointmentModal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeAppointmentModal() {
+    document.getElementById('appointmentModal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+    currentAppointmentId = null;
+}
+
+function updateAppointmentStatus(newStatus) {
+    if (!currentAppointmentId) return;
+    
+    // Create and submit form
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = `/admin/appointment/${currentAppointmentId}/update`;
+    
+    const statusInput = document.createElement('input');
+    statusInput.type = 'hidden';
+    statusInput.name = 'status';
+    statusInput.value = newStatus;
+    
+    form.appendChild(statusInput);
+    document.body.appendChild(form);
+    form.submit();
+}
+
+// Close modal when clicking outside
+document.getElementById('appointmentModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeAppointmentModal();
+    }
+});
+</script>
+{% endblock %}

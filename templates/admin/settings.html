@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Settings - Fix and Fit{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <div class="mb-8">
+        <h1 class="text-4xl font-bold font-dm-sans text-text-dark mb-2">System Settings</h1>
+        <p class="text-text-medium font-dm-sans">Configure application settings and preferences</p>
+    </div>
+
+    <!-- Settings Sections -->
+    <div class="space-y-8">
+        <!-- General Settings -->
+        <div class="bg-white rounded-2xl shadow-card overflow-hidden">
+            <div class="p-6 border-b border-gray-100">
+                <h2 class="text-2xl font-bold font-dm-sans text-text-dark">General Settings</h2>
+            </div>
+            <div class="p-6">
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Site Name</label>
+                            <input type="text" value="Fix and Fit" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-dm-sans">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Contact Email</label>
+                            <input type="email" value="contact@fixandfit.com" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-dm-sans">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Site Description</label>
+                        <textarea rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-dm-sans">Transform your mobility with personalized prosthetics, orthotics, and podorthotics solutions.</textarea>
+                    </div>
+                    
+                    <button type="submit" class="bg-gradient-primary text-white px-6 py-3 rounded-lg font-dm-sans font-semibold hover:shadow-soft transition-all">
+                        Save General Settings
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Appointment Settings -->
+        <div class="bg-white rounded-2xl shadow-card overflow-hidden">
+            <div class="p-6 border-b border-gray-100">
+                <h2 class="text-2xl font-bold font-dm-sans text-text-dark">Appointment Settings</h2>
+            </div>
+            <div class="p-6">
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Business Hours Start</label>
+                            <input type="time" value="09:00" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-dm-sans">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Business Hours End</label>
+                            <input type="time" value="17:00" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-dm-sans">
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Appointment Duration (minutes)</label>
+                            <input type="number" value="60" min="15" max="240" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-dm-sans">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Advance Booking Days</label>
+                            <input type="number" value="30" min="1" max="365" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-dm-sans">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Working Days</label>
+                        <div class="flex flex-wrap gap-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" checked class="mr-2 rounded">
+                                <span class="font-dm-sans text-text-dark">Monday</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" checked class="mr-2 rounded">
+                                <span class="font-dm-sans text-text-dark">Tuesday</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" checked class="mr-2 rounded">
+                                <span class="font-dm-sans text-text-dark">Wednesday</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" checked class="mr-2 rounded">
+                                <span class="font-dm-sans text-text-dark">Thursday</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" checked class="mr-2 rounded">
+                                <span class="font-dm-sans text-text-dark">Friday</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2 rounded">
+                                <span class="font-dm-sans text-text-dark">Saturday</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2 rounded">
+                                <span class="font-dm-sans text-text-dark">Sunday</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="bg-gradient-accent text-white px-6 py-3 rounded-lg font-dm-sans font-semibold hover:shadow-soft transition-all">
+                        Save Appointment Settings
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Notification Settings -->
+        <div class="bg-white rounded-2xl shadow-card overflow-hidden">
+            <div class="p-6 border-b border-gray-100">
+                <h2 class="text-2xl font-bold font-dm-sans text-text-dark">Notification Settings</h2>
+            </div>
+            <div class="p-6">
+                <form class="space-y-6">
+                    <div class="space-y-4">
+                        <label class="flex items-center">
+                            <input type="checkbox" checked class="mr-3 rounded">
+                            <span class="font-dm-sans text-text-dark">Email notifications for new appointments</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" checked class="mr-3 rounded">
+                            <span class="font-dm-sans text-text-dark">Email notifications for appointment cancellations</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-3 rounded">
+                            <span class="font-dm-sans text-text-dark">SMS notifications (requires SMS service setup)</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" checked class="mr-3 rounded">
+                            <span class="font-dm-sans text-text-dark">Daily appointment summary emails</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="bg-gradient-primary text-white px-6 py-3 rounded-lg font-dm-sans font-semibold hover:shadow-soft transition-all">
+                        Save Notification Settings
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- System Information -->
+        <div class="bg-white rounded-2xl shadow-card overflow-hidden">
+            <div class="p-6 border-b border-gray-100">
+                <h2 class="text-2xl font-bold font-dm-sans text-text-dark">System Information</h2>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold font-dm-sans text-text-dark mb-2">Application Version</h3>
+                        <p class="text-text-medium font-dm-sans">v1.0.0</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold font-dm-sans text-text-dark mb-2">Database Status</h3>
+                        <p class="text-green-600 font-dm-sans">Connected</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold font-dm-sans text-text-dark mb-2">Last Backup</h3>
+                        <p class="text-text-medium font-dm-sans">Never (Manual backup required)</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold font-dm-sans text-text-dark mb-2">Storage Used</h3>
+                        <p class="text-text-medium font-dm-sans">< 1 MB</p>
+                    </div>
+                </div>
+                
+                <div class="mt-6 flex space-x-4">
+                    <button class="bg-blue-500 text-white px-6 py-3 rounded-lg font-dm-sans font-semibold hover:bg-blue-600 transition-colors">
+                        Export Data
+                    </button>
+                    <button class="bg-green-500 text-white px-6 py-3 rounded-lg font-dm-sans font-semibold hover:bg-green-600 transition-colors">
+                        Create Backup
+                    </button>
+                    <button class="bg-red-500 text-white px-6 py-3 rounded-lg font-dm-sans font-semibold hover:bg-red-600 transition-colors">
+                        Clear Cache
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Dashboard -->
+    <div class="mt-8">
+        <a href="{{ url_for('admin_dashboard') }}" class="inline-flex items-center text-primary font-dm-sans font-medium hover:text-primary-light transition-colors">
+            <i class="fas fa-arrow-left mr-2"></i>
+            Back to Admin Dashboard
+        </a>
+    </div>
+</div>
+{% endblock %}
