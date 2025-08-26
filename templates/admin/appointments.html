@@ -86,11 +86,11 @@
                             </div>
                         </td>
                         <td class="px-6 py-4">
-                            <p class="font-dm-sans text-text-dark">{{ appointment.service_type }}</p>
+                            <p class="font-dm-sans text-text-dark">{{ appointment.service }}</p>
                         </td>
                         <td class="px-6 py-4">
-                            <p class="font-dm-sans text-text-dark">{{ appointment.appointment_date.strftime('%Y-%m-%d') }}</p>
-                            <p class="text-sm text-text-medium font-dm-sans">{{ appointment.appointment_date.strftime('%H:%M') }}</p>
+                            <p class="font-dm-sans text-text-dark">{{ appointment.date }}</p>
+                            <p class="text-sm text-text-medium font-dm-sans">{{ appointment.time }}</p>
                         </td>
                         <td class="px-6 py-4">
                             {% if appointment.status == 'pending' %}
@@ -135,11 +135,11 @@
                                     </button>
                                 </form>
                                 {% endif %}
-                                <button onclick="openAppointmentModal({{ appointment.id }})" class="bg-gray-500 text-white px-3 py-1 rounded-lg text-sm font-dm-sans hover:bg-gray-600 transition-colors" 
+                                <button onclick="openAppointmentModal('{{ appointment.id }}')" class="bg-gray-500 text-white px-3 py-1 rounded-lg text-sm font-dm-sans hover:bg-gray-600 transition-colors" 
                                         data-patient-name="{{ appointment.user.first_name }} {{ appointment.user.last_name }}"
                                         data-patient-email="{{ appointment.user.email }}"
-                                        data-service-type="{{ appointment.service_type }}"
-                                        data-appointment-date="{{ appointment.appointment_date.strftime('%Y-%m-%d %H:%M') }}"
+                                        data-service-type="{{ appointment.service }}"
+                                        data-appointment-date="{{ appointment.date }} {{ appointment.time }}"
                                         data-status="{{ appointment.status }}"
                                         data-notes="{{ appointment.notes if appointment.notes else '' }}"
                                         data-created-at="{{ appointment.created_at.strftime('%Y-%m-%d %H:%M') if appointment.created_at else 'N/A' }}">
