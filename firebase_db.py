@@ -146,8 +146,10 @@ class FirebaseDB:
                 'created_at': datetime.utcnow()
             }
             
+            print(f"Firebase: Creating appointment with data: {appointment_data}")
             doc_ref = self.db.collection('appointments').add(appointment_data)
             appointment_data['id'] = doc_ref[1].id
+            print(f"Firebase: Appointment created with ID: {appointment_data['id']}")
             return appointment_data
             
         except Exception as e:
@@ -161,10 +163,13 @@ class FirebaseDB:
         
         try:
             appointments = []
+            print(f"Firebase: Searching for appointments with user_id: {user_id}")
             docs = self.db.collection('appointments').where('user_id', '==', user_id).order_by('created_at', direction=firestore.Query.DESCENDING).get()
+            print(f"Firebase: Found {len(docs)} documents")
             for doc in docs:
                 appointment_data = doc.to_dict()
                 appointment_data['id'] = doc.id
+                print(f"Firebase: Appointment data: {appointment_data}")
                 appointments.append(appointment_data)
             return appointments
         except Exception as e:

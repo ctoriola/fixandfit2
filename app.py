@@ -131,7 +131,11 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
+    print(f"Dashboard: Getting appointments for user ID: {current_user.id}")
     appointments = firebase_db.get_appointments_by_user(current_user.id)
+    print(f"Dashboard: Found {len(appointments)} appointments")
+    for apt in appointments:
+        print(f"Appointment: {apt}")
     return render_template('dashboard.html', appointments=appointments)
 
 def allowed_file(filename):
@@ -170,6 +174,9 @@ def book_appointment():
                 except Exception as e:
                     flash(f'Error uploading file: {str(e)}', 'error')
         
+        print(f"Booking appointment for user ID: {current_user.id}")
+        print(f"Service: {service_type}, Date: {appointment_date.date()}, Time: {appointment_date.time()}")
+        
         appointment = firebase_db.create_appointment(
             user_id=current_user.id,
             service=service_type,
@@ -184,6 +191,7 @@ def book_appointment():
             flash('Failed to book appointment. Please try again.', 'error')
             return render_template('book_appointment.html')
         
+        print(f"Appointment created successfully: {appointment}")
         flash('Appointment booked successfully!', 'success')
         return redirect(url_for('dashboard'))
     
