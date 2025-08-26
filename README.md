@@ -30,12 +30,34 @@ cd fixandfit2
 pip install -r requirements.txt
 ```
 
-3. Run the application:
+3. Set up environment variables:
+```bash
+cp .env.example .env
+# Edit .env with your configuration
+```
+
+4. Run the application:
 ```bash
 python app.py
 ```
 
-4. Access the application at `http://localhost:5000`
+5. Access the application at `http://localhost:5000`
+
+## Deployment
+
+### Vercel Deployment
+
+1. Connect your GitHub repository to Vercel
+2. Set environment variables in Vercel dashboard:
+   - `SECRET_KEY`: Your Flask secret key
+   - `DATABASE_URL`: PostgreSQL connection string (recommended for production)
+3. Deploy automatically on push to main branch
+
+### Environment Variables
+
+- `SECRET_KEY`: Flask session security key
+- `DATABASE_URL`: Database connection string
+- `FLASK_ENV`: Set to `production` for deployment
 
 ## Default Admin Account
 

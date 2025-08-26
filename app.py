@@ -1,13 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
+import os
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime, timedelta
-import os
+from datetime import datetime
 from functools import wraps
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your-secret-key-change-in-production'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your-secret-key-change-in-production')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///fixandfit.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -244,7 +244,7 @@ def update_appointment_status(appointment_id):
     flash('Appointment status updated', 'success')
     return redirect(url_for('admin_appointments'))
 
-if __name__ == '__main__':
+def create_tables():
     with app.app_context():
         db.create_all()
         
@@ -261,5 +261,9 @@ if __name__ == '__main__':
             db.session.add(admin)
             db.session.commit()
             print("Admin user created: admin@fixandfit.com / admin123")
-    
+
+# Initialize database on startup
+create_tables()
+
+if __name__ == '__main__':
     app.run(debug=True)
