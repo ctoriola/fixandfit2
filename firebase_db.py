@@ -164,7 +164,7 @@ class FirebaseDB:
         try:
             appointments = []
             print(f"Firebase: Searching for appointments with user_id: {user_id}")
-            docs = self.db.collection('appointments').where('user_id', '==', user_id).order_by('created_at', direction=firestore.Query.DESCENDING).get()
+            docs = self.db.collection('appointments').where('user_id', '==', user_id).get()
             print(f"Firebase: Found {len(docs)} documents")
             for doc in docs:
                 appointment_data = doc.to_dict()
@@ -183,7 +183,7 @@ class FirebaseDB:
         
         try:
             appointments = []
-            docs = self.db.collection('appointments').order_by('created_at', direction=firestore.Query.DESCENDING).get()
+            docs = self.db.collection('appointments').get()
             for doc in docs:
                 appointment_data = doc.to_dict()
                 appointment_data['id'] = doc.id
