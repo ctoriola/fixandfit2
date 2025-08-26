@@ -3,5 +3,5 @@ Flask-Login==0.6.3
 Werkzeug==2.3.7
 firebase-admin==6.2.0
 google-cloud-firestore==2.11.1
-boto3==1.28.85
+cloudinary==1.36.0
 gunicorn==21.2.0
