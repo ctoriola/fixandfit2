@@ -45,7 +45,7 @@ class FirebaseDB:
             self.db = None
     
     # User Management
-    def create_user(self, email, password, first_name, last_name, phone, patient_card_number=None, date_of_birth=None, address=None, emergency_contact=None, emergency_phone=None):
+    def create_user(self, email, password, first_name, last_name, phone, patient_card_number=None, date_of_birth=None, address=None, emergency_contact=None, emergency_phone=None, is_admin=False):
         """Create a new user"""
         if not self.db:
             raise Exception("Firestore not initialized")
@@ -54,8 +54,8 @@ class FirebaseDB:
             # Hash password
             password_hash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
             
-            # Generate patient card number if not provided
-            if not patient_card_number:
+            # Generate patient card number if not provided (not needed for admin)
+            if not patient_card_number and not is_admin:
                 import random
                 patient_card_number = f"FF{random.randint(100000, 999999)}"
             
@@ -70,7 +70,7 @@ class FirebaseDB:
                 'address': address,
                 'emergency_contact': emergency_contact,
                 'emergency_phone': emergency_phone,
-                'is_admin': False,
+                'is_admin': is_admin,
                 'created_at': datetime.utcnow()
             }
             
@@ -169,7 +169,37 @@ class FirebaseDB:
             return result
         except Exception as e:
             print(f"Password verification error: {e}")
-            return False
+            return []
+    
+    def create_admin_user(self):
+        """Create default admin user if none exists"""
+        try:
+            # Check if admin already exists
+            admin_users = self.db.collection('users').where('is_admin', '==', True).limit(1).get()
+            if len(admin_users) > 0:
+                print("Admin user already exists")
+                return None
+            
+            # Create admin user
+            admin_data = self.create_user(
+                email='admin@fixandfit.com',
+                password='admin123',
+                first_name='Admin',
+                last_name='User',
+                phone='+1234567890',
+                is_admin=True
+            )
+            
+            if admin_data:
+                print(f"Admin user created: admin@fixandfit.com / admin123")
+                return admin_data
+            else:
+                print("Failed to create admin user")
+                return None
+                
+        except Exception as e:
+            print(f"Error creating admin user: {e}")
+            return None
     
     # Appointment Management
     def create_appointment(self, user_id, service, date, time, notes=None, attachment_url=None, attachment_filename=None):

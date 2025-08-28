@@ -316,12 +316,10 @@ def create_admin_user():
             )
             if admin_data:
                 print("Admin user created: admin@fixandfit.com / admin123")
-            else:
-                print("Failed to create admin user")
     except Exception as e:
         print(f"Error creating admin user: {e}")
 
-# Initialize admin user on startup
+# Create admin user on startup if none exists
 create_admin_user()
 
 if __name__ == '__main__':
