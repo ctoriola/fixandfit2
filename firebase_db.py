@@ -169,7 +169,7 @@ class FirebaseDB:
             return result
         except Exception as e:
             print(f"Password verification error: {e}")
-            return []
+            return False
     
     def create_admin_user(self):
         """Create default admin user if none exists"""

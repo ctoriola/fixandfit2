@@ -114,7 +114,8 @@ def register():
             date_of_birth=date_of_birth,
             address=address,
             emergency_contact=emergency_contact,
-            emergency_phone=emergency_phone
+            emergency_phone=emergency_phone,
+            is_admin=False
         )
         
         if not user_data:
@@ -312,6 +313,7 @@ def create_admin_user():
                 password='admin123',
                 first_name='Admin',
                 last_name='User',
+                phone='+1234567890',
                 is_admin=True
             )
             if admin_data:
