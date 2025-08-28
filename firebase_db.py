@@ -150,11 +150,15 @@ class FirebaseDB:
         
         try:
             users = []
-            docs = self.db.collection('users').order_by('created_at', direction=firestore.Query.DESCENDING).get()
+            # Remove order_by to avoid index requirement, then sort in Python
+            docs = self.db.collection('users').get()
             for doc in docs:
                 user_data = doc.to_dict()
                 user_data['id'] = doc.id
                 users.append(user_data)
+            
+            # Sort by created_at in Python
+            users.sort(key=lambda x: x.get('created_at', datetime.min), reverse=True)
             return users
         except Exception as e:
             print(f"Error getting all users: {e}")
