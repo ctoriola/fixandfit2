@@ -167,12 +167,53 @@
             menu.classList.toggle('hidden');
         }
         
-        // Initialize AOS animations
         AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
+            duration: 1000,
             once: true,
             offset: 100
+        });
+        
+        // Carousel functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousel = document.getElementById('heroCarousel');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            let currentSlide = 0;
+            const totalSlides = 3;
+            
+            if (carousel && indicators.length > 0) {
+                // Auto-advance carousel
+                setInterval(() => {
+                    currentSlide = (currentSlide + 1) % totalSlides;
+                    updateCarousel();
+                }, 4000);
+                
+                // Indicator click handlers
+                indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => {
+                        currentSlide = index;
+                        updateCarousel();
+                    });
+                });
+                
+                function updateCarousel() {
+                    const translateX = -currentSlide * 100;
+                    carousel.style.transform = `translateX(${translateX}%)`;
+                    
+                    // Update indicators
+                    indicators.forEach((indicator, index) => {
+                        if (index === currentSlide) {
+                            indicator.classList.add('active');
+                            indicator.style.backgroundColor = 'white';
+                        } else {
+                            indicator.classList.remove('active');
+                            indicator.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+                        }
+                    });
+                }
+                
+                // Initialize first slide
+                updateCarousel();
+            }
         });
         
         // Add smooth hover animations

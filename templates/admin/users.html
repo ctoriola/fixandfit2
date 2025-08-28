@@ -15,7 +15,11 @@
             <div class="flex justify-between items-center">
                 <h2 class="text-2xl font-bold font-dm-sans text-text-dark">All Users ({{ users|length }})</h2>
                 <div class="flex space-x-3">
-                    <input type="text" placeholder="Search users..." class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-dm-sans">
+                    <input type="text" 
+                           id="userSearch" 
+                           placeholder="Search users..." 
+                           class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-dm-sans"
+                           onkeyup="searchUsers()">
                     <button class="bg-gradient-primary text-white px-4 py-2 rounded-lg font-dm-sans font-medium hover:shadow-soft transition-all">
                         <i class="fas fa-search mr-2"></i>Search
                     </button>
@@ -35,9 +39,13 @@
                         <th class="px-6 py-4 text-left text-sm font-semibold font-dm-sans text-text-dark">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-100">
+                <tbody class="divide-y divide-gray-100" id="usersTableBody">
                     {% for user in users %}
-                    <tr class="hover:bg-gray-50 transition-colors">
+                    <tr class="hover:bg-gray-50 transition-colors user-row" 
+                        data-name="{{ user.first_name }} {{ user.last_name }}" 
+                        data-email="{{ user.email }}" 
+                        data-role="{% if user.is_admin %}admin{% else %}user{% endif %}"
+                        data-id="{{ user.id }}">
                         <td class="px-6 py-4">
                             <div class="flex items-center">
                                 <div class="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center text-white font-bold font-dm-sans mr-3">
@@ -138,4 +146,66 @@
         </a>
     </div>
 </div>
+
+<script>
+function searchUsers() {
+    const searchInput = document.getElementById('userSearch');
+    const searchTerm = searchInput.value.toLowerCase();
+    const userRows = document.querySelectorAll('.user-row');
+    let visibleCount = 0;
+
+    userRows.forEach(row => {
+        const name = row.getAttribute('data-name').toLowerCase();
+        const email = row.getAttribute('data-email').toLowerCase();
+        const role = row.getAttribute('data-role').toLowerCase();
+        const id = row.getAttribute('data-id').toLowerCase();
+
+        if (name.includes(searchTerm) || 
+            email.includes(searchTerm) || 
+            role.includes(searchTerm) || 
+            id.includes(searchTerm)) {
+            row.style.display = '';
+            visibleCount++;
+        } else {
+            row.style.display = 'none';
+        }
+    });
+
+    // Update the user count in the header
+    const userCountElement = document.querySelector('h2');
+    if (userCountElement) {
+        userCountElement.textContent = `All Users (${visibleCount})`;
+    }
+
+    // Show/hide "no users found" message
+    const noUsersMessage = document.getElementById('noUsersMessage');
+    if (visibleCount === 0) {
+        if (!noUsersMessage) {
+            const tbody = document.getElementById('usersTableBody');
+            const noUsersRow = document.createElement('tr');
+            noUsersRow.id = 'noUsersMessage';
+            noUsersRow.innerHTML = `
+                <td colspan="6" class="px-6 py-12 text-center">
+                    <i class="fas fa-search text-4xl text-gray-300 mb-4"></i>
+                    <p class="text-lg font-dm-sans text-text-medium">No users found matching "${searchTerm}"</p>
+                    <p class="text-sm font-dm-sans text-text-medium mt-2">Try adjusting your search terms</p>
+                </td>
+            `;
+            tbody.appendChild(noUsersRow);
+        }
+    } else {
+        if (noUsersMessage) {
+            noUsersMessage.remove();
+        }
+    }
+}
+
+// Clear search on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('userSearch');
+    if (searchInput) {
+        searchInput.value = '';
+    }
+});
+</script>
 {% endblock %}
