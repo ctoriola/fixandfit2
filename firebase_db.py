@@ -75,12 +75,12 @@ class FirebaseDB:
             }
             
             # Check if user already exists by email or patient card number
-            existing_user = self.db.collection('users').where(filter=('email', '==', email)).limit(1).get()
+            existing_user = self.db.collection('users').where('email', '==', email).limit(1).get()
             if len(existing_user) > 0:
                 return None  # User already exists
             
             if patient_card_number:
-                existing_patient = self.db.collection('users').where(filter=('patient_card_number', '==', patient_card_number)).limit(1).get()
+                existing_patient = self.db.collection('users').where('patient_card_number', '==', patient_card_number).limit(1).get()
                 if len(existing_patient) > 0:
                     return None  # Patient card number already exists
             
@@ -99,7 +99,7 @@ class FirebaseDB:
             return None
         
         try:
-            users = self.db.collection('users').where(filter=('email', '==', email)).limit(1).get()
+            users = self.db.collection('users').where('email', '==', email).limit(1).get()
             if users:
                 user_doc = users[0]
                 user_data = user_doc.to_dict()
@@ -116,7 +116,7 @@ class FirebaseDB:
             return None
         
         try:
-            users = self.db.collection('users').where(filter=('patient_card_number', '==', patient_number)).limit(1).get()
+            users = self.db.collection('users').where('patient_card_number', '==', patient_number).limit(1).get()
             if users:
                 user_doc = users[0]
                 user_data = user_doc.to_dict()
@@ -175,7 +175,7 @@ class FirebaseDB:
         """Create default admin user if none exists"""
         try:
             # Check if admin already exists
-            admin_users = self.db.collection('users').where(filter=('is_admin', '==', True)).limit(1).get()
+            admin_users = self.db.collection('users').where('is_admin', '==', True).limit(1).get()
             if len(admin_users) > 0:
                 print("Admin user already exists")
                 return None
@@ -238,7 +238,7 @@ class FirebaseDB:
         try:
             appointments = []
             print(f"Firebase: Searching for appointments with user_id: {user_id}")
-            docs = self.db.collection('appointments').where(filter=('user_id', '==', user_id)).get()
+            docs = self.db.collection('appointments').where('user_id', '==', user_id).get()
             print(f"Firebase: Found {len(docs)} documents")
             for doc in docs:
                 appointment_data = doc.to_dict()
