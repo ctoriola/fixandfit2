@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Add Diagnosis - Fix & Fit Admin{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">Add Diagnosis</h1>
+                    <p class="mt-2 text-gray-600">Add a new diagnosis for {{ user.first_name }} {{ user.last_name }}</p>
+                </div>
+                <a href="{{ url_for('admin_view_user', user_id=user.id) }}" 
+                   class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+                    Back to Patient
+                </a>
+            </div>
+        </div>
+
+        <!-- Patient Info Card -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Patient Information</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <p class="text-sm text-gray-600">Name</p>
+                    <p class="font-semibold">{{ user.first_name }} {{ user.last_name }}</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-600">Patient Card</p>
+                    <p class="font-semibold">{{ user.patient_card_number or 'N/A' }}</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-600">Email</p>
+                    <p class="font-semibold">{{ user.email }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diagnosis Form -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-6">New Diagnosis</h2>
+            
+            <form method="POST" class="space-y-6">
+                <div>
+                    <label for="diagnosis" class="block text-sm font-medium text-gray-700 mb-2">
+                        Diagnosis <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" 
+                           id="diagnosis" 
+                           name="diagnosis" 
+                           required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           placeholder="Enter diagnosis (e.g., Lower back pain, Muscle strain)">
+                </div>
+
+                <div>
+                    <label for="treatment" class="block text-sm font-medium text-gray-700 mb-2">
+                        Treatment Plan <span class="text-red-500">*</span>
+                    </label>
+                    <textarea id="treatment" 
+                              name="treatment" 
+                              required
+                              rows="4"
+                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              placeholder="Describe the treatment plan, exercises, medications, or recommendations"></textarea>
+                </div>
+
+                <div>
+                    <label for="notes" class="block text-sm font-medium text-gray-700 mb-2">
+                        Additional Notes
+                    </label>
+                    <textarea id="notes" 
+                              name="notes" 
+                              rows="3"
+                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              placeholder="Any additional observations, follow-up instructions, or notes"></textarea>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-6 border-t">
+                    <a href="{{ url_for('admin_view_user', user_id=user.id) }}" 
+                       class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                        Cancel
+                    </a>
+                    <button type="submit" 
+                            class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        Add Diagnosis
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Quick Diagnosis Templates -->
+        <div class="mt-8 bg-white rounded-xl shadow-lg p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Templates</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="border border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-gray-50" 
+                     onclick="fillTemplate('Lower Back Pain', 'Physical therapy exercises, heat/cold therapy, pain management medication as needed. Follow up in 2 weeks.')">
+                    <h4 class="font-medium text-gray-900">Lower Back Pain</h4>
+                    <p class="text-sm text-gray-600">Common treatment for back pain</p>
+                </div>
+                <div class="border border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-gray-50"
+                     onclick="fillTemplate('Muscle Strain', 'Rest, ice application for first 48 hours, gentle stretching exercises. Avoid strenuous activity for 1 week.')">
+                    <h4 class="font-medium text-gray-900">Muscle Strain</h4>
+                    <p class="text-sm text-gray-600">Treatment for muscle injuries</p>
+                </div>
+                <div class="border border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-gray-50"
+                     onclick="fillTemplate('Joint Stiffness', 'Range of motion exercises, warm-up before activities, joint mobility therapy. Regular follow-up recommended.')">
+                    <h4 class="font-medium text-gray-900">Joint Stiffness</h4>
+                    <p class="text-sm text-gray-600">Treatment for joint mobility issues</p>
+                </div>
+                <div class="border border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-gray-50"
+                     onclick="fillTemplate('Posture Correction', 'Ergonomic assessment, posture correction exercises, strengthening core muscles. Education on proper posture.')">
+                    <h4 class="font-medium text-gray-900">Posture Correction</h4>
+                    <p class="text-sm text-gray-600">Treatment for posture-related issues</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function fillTemplate(diagnosis, treatment) {
+    document.getElementById('diagnosis').value = diagnosis;
+    document.getElementById('treatment').value = treatment;
+}
+</script>
+{% endblock %}

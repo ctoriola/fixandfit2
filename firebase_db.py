@@ -128,7 +128,7 @@ class FirebaseDB:
             return None
     
     def get_user_by_id(self, user_id):
-        """Get user by ID"""
+        """Get user by document ID"""
         if not self.db:
             return None
         
@@ -201,6 +201,68 @@ class FirebaseDB:
             print(f"Error in create_admin_user: {e}")
             return None
     
+    # Diagnosis and Patient History Management
+    def create_diagnosis(self, user_id, diagnosis, treatment, notes=None, created_by_admin=None):
+        """Create a new diagnosis for a patient"""
+        if not self.db:
+            raise Exception("Firestore not initialized")
+        
+        try:
+            diagnosis_data = {
+                'user_id': user_id,
+                'diagnosis': diagnosis,
+                'treatment': treatment,
+                'notes': notes,
+                'created_by_admin': created_by_admin,
+                'created_at': datetime.utcnow(),
+                'status': 'active'
+            }
+            
+            doc_ref = self.db.collection('diagnoses').add(diagnosis_data)
+            diagnosis_data['id'] = doc_ref[1].id
+            print(f"Created diagnosis: {diagnosis_data}")
+            return diagnosis_data
+            
+        except Exception as e:
+            print(f"Error creating diagnosis: {e}")
+            return None
+    
+    def get_patient_history(self, user_id):
+        """Get all diagnoses/history for a patient"""
+        if not self.db:
+            return []
+        
+        try:
+            history = []
+            docs = self.db.collection('diagnoses').where('user_id', '==', user_id).get()
+            for doc in docs:
+                diagnosis_data = doc.to_dict()
+                diagnosis_data['id'] = doc.id
+                history.append(diagnosis_data)
+            
+            # Sort by created_at descending (most recent first)
+            history.sort(key=lambda x: x.get('created_at', datetime.min), reverse=True)
+            return history
+            
+        except Exception as e:
+            print(f"Error getting patient history: {e}")
+            return []
+    
+    def update_diagnosis_status(self, diagnosis_id, status):
+        """Update diagnosis status (active, resolved, etc.)"""
+        if not self.db:
+            return False
+        
+        try:
+            self.db.collection('diagnoses').document(diagnosis_id).update({
+                'status': status,
+                'updated_at': datetime.utcnow()
+            })
+            return True
+        except Exception as e:
+            print(f"Error updating diagnosis status: {e}")
+            return False
+
     # Appointment Management
     def create_appointment(self, user_id, service, date, time, notes=None, attachment_url=None, attachment_filename=None):
         """Create a new appointment"""

@@ -160,5 +160,47 @@
             </div>
         </div>
     </div>
+
+    <!-- Patient History Section -->
+    {% if patient_history %}
+    <div class="bg-white rounded-2xl shadow-card p-6 mt-8">
+        <h2 class="text-2xl font-bold font-dm-sans text-text-dark mb-6 flex items-center">
+            <svg class="w-6 h-6 mr-2 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            Your Medical History
+        </h2>
+        
+        <div class="space-y-4">
+            {% for diagnosis in patient_history %}
+            <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="font-semibold text-gray-900 font-dm-sans">{{ diagnosis.diagnosis }}</h3>
+                    <span class="px-2 py-1 text-xs rounded-full font-dm-sans
+                               {% if diagnosis.status == 'active' %}bg-red-100 text-red-800{% else %}bg-green-100 text-green-800{% endif %}">
+                        {{ diagnosis.status|title }}
+                    </span>
+                </div>
+                
+                <div class="mb-2">
+                    <p class="text-sm font-medium text-gray-700 font-dm-sans">Treatment:</p>
+                    <p class="text-gray-600 font-dm-sans">{{ diagnosis.treatment }}</p>
+                </div>
+                
+                {% if diagnosis.notes %}
+                <div class="mb-2">
+                    <p class="text-sm font-medium text-gray-700 font-dm-sans">Notes:</p>
+                    <p class="text-gray-600 font-dm-sans">{{ diagnosis.notes }}</p>
+                </div>
+                {% endif %}
+                
+                <div class="text-sm text-gray-500 mt-3 pt-3 border-t font-dm-sans">
+                    <span>{{ diagnosis.created_at.strftime('%B %d, %Y at %I:%M %p') if diagnosis.created_at else 'Date not available' }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

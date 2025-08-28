@@ -176,12 +176,13 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    print(f"Dashboard: Getting appointments for user ID: {current_user.id}")
     appointments = firebase_db.get_appointments_by_user(current_user.id)
-    print(f"Dashboard: Found {len(appointments)} appointments")
-    for apt in appointments:
-        print(f"Appointment: {apt}")
-    return render_template('dashboard.html', appointments=appointments)
+    appointments.sort(key=lambda x: x.get('created_at', datetime.min), reverse=True)
+    recent_appointments = appointments[:5]  # Get 5 most recent
+    
+    patient_history = firebase_db.get_patient_history(current_user.id)
+    
+    return render_template('dashboard.html', appointments=recent_appointments, patient_history=patient_history)
 
 def allowed_file(filename):
     ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif', 'doc', 'docx'}
@@ -291,17 +292,88 @@ def admin_appointments():
 def admin_settings():
     return render_template('admin/settings.html')
 
-@app.route('/admin/appointment/<appointment_id>/update', methods=['POST'])
+@app.route('/admin/update_appointment_status/<appointment_id>/<status>')
 @login_required
-@admin_required
-def update_appointment_status(appointment_id):
-    status = request.form['status']
+def update_appointment_status(appointment_id, status):
+    if not current_user.is_admin:
+        flash('Access denied', 'error')
+        return redirect(url_for('dashboard'))
+    
     success = firebase_db.update_appointment_status(appointment_id, status)
     if success:
         flash('Appointment status updated', 'success')
     else:
         flash('Failed to update appointment status', 'error')
     return redirect(url_for('admin_appointments'))
+
+@app.route('/admin/user/<user_id>')
+@login_required
+def admin_view_user(user_id):
+    if not current_user.is_admin:
+        flash('Access denied', 'error')
+        return redirect(url_for('dashboard'))
+    
+    user = firebase_db.get_user_by_id(user_id)
+    if not user:
+        flash('User not found', 'error')
+        return redirect(url_for('admin_users'))
+    
+    # Get patient history
+    patient_history = firebase_db.get_patient_history(user_id)
+    
+    return render_template('admin/view_user.html', user=user, patient_history=patient_history)
+
+@app.route('/admin/add_diagnosis/<user_id>', methods=['GET', 'POST'])
+@login_required
+def add_diagnosis(user_id):
+    if not current_user.is_admin:
+        flash('Access denied', 'error')
+        return redirect(url_for('dashboard'))
+    
+    user = firebase_db.get_user_by_id(user_id)
+    if not user:
+        flash('User not found', 'error')
+        return redirect(url_for('admin_users'))
+    
+    if request.method == 'POST':
+        diagnosis = request.form.get('diagnosis')
+        treatment = request.form.get('treatment')
+        notes = request.form.get('notes')
+        
+        if not diagnosis or not treatment:
+            flash('Diagnosis and treatment are required', 'error')
+            return render_template('admin/add_diagnosis.html', user=user)
+        
+        diagnosis_data = firebase_db.create_diagnosis(
+            user_id=user_id,
+            diagnosis=diagnosis,
+            treatment=treatment,
+            notes=notes,
+            created_by_admin=current_user.id
+        )
+        
+        if diagnosis_data:
+            flash('Diagnosis added successfully', 'success')
+            return redirect(url_for('admin_view_user', user_id=user_id))
+        else:
+            flash('Failed to add diagnosis', 'error')
+    
+    return render_template('admin/add_diagnosis.html', user=user)
+
+@app.route('/admin/update_diagnosis_status/<diagnosis_id>/<status>', methods=['POST'])
+@login_required
+def update_diagnosis_status(diagnosis_id, status):
+    if not current_user.is_admin:
+        flash('Access denied', 'error')
+        return redirect(url_for('dashboard'))
+    
+    success = firebase_db.update_diagnosis_status(diagnosis_id, status)
+    if success:
+        flash('Diagnosis status updated', 'success')
+    else:
+        flash('Failed to update diagnosis status', 'error')
+    
+    return '', 200
 
 def create_admin_user():
     """Create admin user if it doesn't exist"""
