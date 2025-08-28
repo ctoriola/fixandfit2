@@ -174,13 +174,19 @@ class FirebaseDB:
     def create_admin_user(self):
         """Create default admin user if none exists"""
         try:
-            # Check if admin already exists
-            admin_users = self.db.collection('users').where('is_admin', '==', True).limit(1).get()
-            if len(admin_users) > 0:
-                print("Admin user already exists")
-                return None
+            # Delete any existing admin users first
+            admin_users = self.db.collection('users').where('is_admin', '==', True).get()
+            for admin_doc in admin_users:
+                print(f"Deleting existing admin: {admin_doc.id}")
+                admin_doc.reference.delete()
             
-            # Create admin user
+            # Also delete by email if exists
+            email_users = self.db.collection('users').where('email', '==', 'admin@fixandfit.com').get()
+            for email_doc in email_users:
+                print(f"Deleting existing admin by email: {email_doc.id}")
+                email_doc.reference.delete()
+            
+            # Create fresh admin user
             admin_data = self.create_user(
                 email='admin@fixandfit.com',
                 password='admin123',
@@ -189,16 +195,10 @@ class FirebaseDB:
                 phone='+1234567890',
                 is_admin=True
             )
-            
-            if admin_data:
-                print(f"Admin user created: admin@fixandfit.com / admin123")
-                return admin_data
-            else:
-                print("Failed to create admin user")
-                return None
-                
+            print(f"Admin creation result: {admin_data}")
+            return admin_data
         except Exception as e:
-            print(f"Error creating admin user: {e}")
+            print(f"Error in create_admin_user: {e}")
             return None
     
     # Appointment Management

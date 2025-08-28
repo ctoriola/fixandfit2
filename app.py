@@ -306,18 +306,25 @@ def update_appointment_status(appointment_id):
 def create_admin_user():
     """Create admin user if it doesn't exist"""
     try:
+        # Force delete existing admin if any
         admin = firebase_db.get_user_by_email('admin@fixandfit.com')
-        if not admin:
-            admin_data = firebase_db.create_user(
-                email='admin@fixandfit.com',
-                password='admin123',
-                first_name='Admin',
-                last_name='User',
-                phone='+1234567890',
-                is_admin=True
-            )
-            if admin_data:
-                print("Admin user created: admin@fixandfit.com / admin123")
+        if admin:
+            print("Deleting existing admin user")
+            firebase_db.db.collection('users').document(admin['id']).delete()
+        
+        # Create fresh admin user
+        admin_data = firebase_db.create_user(
+            email='admin@fixandfit.com',
+            password='admin123',
+            first_name='Admin',
+            last_name='User',
+            phone='+1234567890',
+            is_admin=True
+        )
+        if admin_data:
+            print("NEW Admin user created: admin@fixandfit.com / admin123")
+        else:
+            print("Failed to create admin user")
     except Exception as e:
         print(f"Error creating admin user: {e}")
 
