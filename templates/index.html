@@ -11,13 +11,13 @@
     </div>
     
     <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
-        <h1 class="text-6xl font-bold font-dm-sans mb-8 leading-tight">
+        <h1 class="text-6xl font-bold font-dm-sans mb-8 leading-tight" data-aos="fade-up" data-aos-delay="100">
             Making You <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">Fit Again</span>
         </h1>
-        <p class="text-xl font-dm-sans font-light mb-12 max-w-2xl mx-auto leading-relaxed opacity-90">
+        <p class="text-xl font-dm-sans font-light mb-12 max-w-2xl mx-auto leading-relaxed opacity-90" data-aos="fade-up" data-aos-delay="200">
             Transform your mobility with personalized prosthetics, orthotics, and podorthotics solutions designed for your unique needs.
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="300">
             {% if current_user.is_authenticated %}
                 <a href="{{ url_for('book_appointment') }}" class="bg-white text-primary px-8 py-4 rounded-lg text-lg font-dm-sans font-semibold hover:shadow-soft transition-all transform hover:scale-105">
                     Book Appointment

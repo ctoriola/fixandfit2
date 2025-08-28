@@ -3,6 +3,8 @@ import json
 from datetime import datetime
 import firebase_admin
 from firebase_admin import credentials, firestore
+from datetime import datetime
+import bcrypt
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class FirebaseDB:
@@ -43,26 +45,43 @@ class FirebaseDB:
             self.db = None
     
     # User Management
-    def create_user(self, email, password, first_name, last_name, phone=None, is_admin=False):
+    def create_user(self, email, password, first_name, last_name, phone, patient_card_number=None, date_of_birth=None, address=None, emergency_contact=None, emergency_phone=None):
         """Create a new user"""
         if not self.db:
             raise Exception("Firestore not initialized")
         
         try:
+            # Hash password
+            password_hash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+            
+            # Generate patient card number if not provided
+            if not patient_card_number:
+                import random
+                patient_card_number = f"FF{random.randint(100000, 999999)}"
+            
             user_data = {
                 'email': email,
-                'password_hash': generate_password_hash(password),
+                'password_hash': password_hash.decode('utf-8'),
                 'first_name': first_name,
                 'last_name': last_name,
                 'phone': phone,
-                'is_admin': is_admin,
+                'patient_card_number': patient_card_number,
+                'date_of_birth': date_of_birth,
+                'address': address,
+                'emergency_contact': emergency_contact,
+                'emergency_phone': emergency_phone,
+                'is_admin': False,
                 'created_at': datetime.utcnow()
             }
             
-            # Check if user already exists
+            # Check if user already exists by email or patient card number
             existing_user = self.db.collection('users').where('email', '==', email).limit(1).get()
             if existing_user:
                 return None  # User already exists
+            
+            existing_patient = self.db.collection('users').where('patient_card_number', '==', patient_card_number).limit(1).get()
+            if existing_patient:
+                return None  # Patient card number already exists
             
             # Create user document
             doc_ref = self.db.collection('users').add(user_data)
@@ -88,6 +107,23 @@ class FirebaseDB:
             return None
         except Exception as e:
             print(f"Error getting user by email: {e}")
+            return None
+    
+    def get_user_by_patient_number(self, patient_number):
+        """Get user by patient card number"""
+        if not self.db:
+            return None
+        
+        try:
+            users = self.db.collection('users').where('patient_card_number', '==', patient_number).limit(1).get()
+            if users:
+                user_doc = users[0]
+                user_data = user_doc.to_dict()
+                user_data['id'] = user_doc.id
+                return user_data
+            return None
+        except Exception as e:
+            print(f"Error getting user by patient number: {e}")
             return None
     
     def get_user_by_id(self, user_id):

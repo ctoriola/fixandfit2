@@ -23,6 +23,11 @@ class User(UserMixin):
         self.first_name = user_data['first_name']
         self.last_name = user_data['last_name']
         self.phone = user_data.get('phone')
+        self.patient_card_number = user_data.get('patient_card_number')
+        self.date_of_birth = user_data.get('date_of_birth')
+        self.address = user_data.get('address')
+        self.emergency_contact = user_data.get('emergency_contact')
+        self.emergency_phone = user_data.get('emergency_phone')
         self.is_admin = user_data.get('is_admin', False)
         self.created_at = user_data.get('created_at')
         self.password_hash = user_data['password_hash']
@@ -40,6 +45,13 @@ class User(UserMixin):
     @staticmethod
     def get_by_email(email):
         user_data = firebase_db.get_user_by_email(email)
+        if user_data:
+            return User(user_data)
+        return None
+    
+    @staticmethod
+    def get_by_patient_number(patient_number):
+        user_data = firebase_db.get_user_by_patient_number(patient_number)
         if user_data:
             return User(user_data)
         return None
@@ -82,6 +94,11 @@ def register():
         first_name = request.form['first_name']
         last_name = request.form['last_name']
         phone = request.form['phone']
+        date_of_birth = request.form.get('date_of_birth')
+        address = request.form.get('address')
+        emergency_contact = request.form.get('emergency_contact')
+        emergency_phone = request.form.get('emergency_phone')
+        patient_card_number = request.form.get('patient_card_number')
         
         if User.get_by_email(email):
             flash('Email already registered', 'error')
@@ -92,7 +109,12 @@ def register():
             password=password,
             first_name=first_name,
             last_name=last_name,
-            phone=phone
+            phone=phone,
+            patient_card_number=patient_card_number,
+            date_of_birth=date_of_birth,
+            address=address,
+            emergency_contact=emergency_contact,
+            emergency_phone=emergency_phone
         )
         
         if not user_data:
@@ -107,17 +129,25 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        email = request.form['email']
+        login_input = request.form['email']  # Can be email or patient number
         password = request.form['password']
         
-        user = User.get_by_email(email)
+        # Try to get user by email first, then by patient number
+        user = User.get_by_email(login_input)
+        if not user:
+            user = User.get_by_patient_number(login_input)
         
         if user and firebase_db.verify_password(user.__dict__, password):
             login_user(user)
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('dashboard'))
+            if next_page:
+                return redirect(next_page)
+            elif user.is_admin:
+                return redirect(url_for('admin_dashboard'))
+            else:
+                return redirect(url_for('dashboard'))
         else:
-            flash('Invalid email or password', 'error')
+            flash('Invalid email/patient number or password', 'error')
     
     return render_template('login.html')
 
