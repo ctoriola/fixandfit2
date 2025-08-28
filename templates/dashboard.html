@@ -39,7 +39,57 @@
                     {% if current_user.phone %}
                         <p><strong>Phone:</strong> {{ current_user.phone }}</p>
                     {% endif %}
-                    <p><strong>Member since:</strong> {{ current_user.created_at.strftime('%B %Y') }}</p>
+                    <p><strong>Member since:</strong> {{ current_user.created_at.strftime('%B %Y') if current_user.created_at else 'N/A' }}</p>
+                </div>
+            </div>
+
+            <!-- Patient Card Details -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mt-6" data-aos="fade-up">
+                <h2 class="text-xl font-semibold mb-4 text-primary">
+                    <i class="fas fa-id-card mr-2"></i>Patient Card Details
+                </h2>
+                <div class="bg-gradient-primary rounded-lg p-4 text-white mb-4">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-sm opacity-90">Patient Card Number</p>
+                            <p class="text-2xl font-bold">{{ current_user.patient_card_number or 'N/A' }}</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm opacity-90">Fix and Fit</p>
+                            <p class="text-lg font-semibold">Healthcare</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="border-l-4 border-primary pl-4">
+                        <p class="text-sm text-gray-600">Date of Birth</p>
+                        <p class="font-semibold">{{ current_user.date_of_birth or 'Not provided' }}</p>
+                    </div>
+                    
+                    {% if current_user.address %}
+                    <div class="border-l-4 border-accent pl-4">
+                        <p class="text-sm text-gray-600">Address</p>
+                        <p class="font-semibold">{{ current_user.address }}</p>
+                    </div>
+                    {% endif %}
+                    
+                    {% if current_user.emergency_contact %}
+                    <div class="border-l-4 border-red-500 pl-4">
+                        <p class="text-sm text-gray-600">Emergency Contact</p>
+                        <p class="font-semibold">{{ current_user.emergency_contact }}</p>
+                        {% if current_user.emergency_phone %}
+                            <p class="text-sm text-gray-500">{{ current_user.emergency_phone }}</p>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <p class="text-xs text-gray-500 text-center">
+                        <i class="fas fa-shield-alt mr-1"></i>
+                        Your patient information is secure and confidential
+                    </p>
                 </div>
             </div>
         </div>
