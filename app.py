@@ -121,7 +121,7 @@ def register():
             flash('Registration failed. Please try again.', 'error')
             return render_template('register.html')
         
-        flash('Registration successful! Please login.', 'success')
+        flash(f'Registration successful! Your patient number is: {user_data.get("patient_card_number", "N/A")}. Please login.', 'success')
         return redirect(url_for('login'))
     
     return render_template('register.html')
@@ -132,22 +132,36 @@ def login():
         login_input = request.form['email']  # Can be email or patient number
         password = request.form['password']
         
-        # Try to get user by email first, then by patient number
-        user = User.get_by_email(login_input)
-        if not user:
-            user = User.get_by_patient_number(login_input)
-        
-        if user and firebase_db.verify_password(user.__dict__, password):
-            login_user(user)
-            next_page = request.args.get('next')
-            if next_page:
-                return redirect(next_page)
-            elif user.is_admin:
-                return redirect(url_for('admin_dashboard'))
+        try:
+            print(f"Login attempt with input: {login_input}")
+            
+            # Try to get user by email first, then by patient number
+            user = User.get_by_email(login_input)
+            if not user:
+                print(f"User not found by email, trying patient number")
+                user = User.get_by_patient_number(login_input)
+            
+            if user:
+                print(f"User found: {user.email}, verifying password")
+                if firebase_db.verify_password(user.__dict__, password):
+                    print(f"Password verified, logging in user")
+                    login_user(user)
+                    next_page = request.args.get('next')
+                    if next_page:
+                        return redirect(next_page)
+                    elif user.is_admin:
+                        return redirect(url_for('admin_dashboard'))
+                    else:
+                        return redirect(url_for('dashboard'))
+                else:
+                    print(f"Password verification failed")
+                    flash('Invalid email/patient number or password', 'error')
             else:
-                return redirect(url_for('dashboard'))
-        else:
-            flash('Invalid email/patient number or password', 'error')
+                print(f"User not found")
+                flash('Invalid email/patient number or password', 'error')
+        except Exception as e:
+            print(f"Login error: {e}")
+            flash('Login failed. Please try again.', 'error')
     
     return render_template('login.html')
 

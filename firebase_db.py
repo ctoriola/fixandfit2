@@ -76,12 +76,13 @@ class FirebaseDB:
             
             # Check if user already exists by email or patient card number
             existing_user = self.db.collection('users').where('email', '==', email).limit(1).get()
-            if existing_user:
+            if len(existing_user) > 0:
                 return None  # User already exists
             
-            existing_patient = self.db.collection('users').where('patient_card_number', '==', patient_card_number).limit(1).get()
-            if existing_patient:
-                return None  # Patient card number already exists
+            if patient_card_number:
+                existing_patient = self.db.collection('users').where('patient_card_number', '==', patient_card_number).limit(1).get()
+                if len(existing_patient) > 0:
+                    return None  # Patient card number already exists
             
             # Create user document
             doc_ref = self.db.collection('users').add(user_data)
@@ -161,7 +162,14 @@ class FirebaseDB:
     
     def verify_password(self, user_data, password):
         """Verify user password"""
-        return check_password_hash(user_data['password_hash'], password)
+        try:
+            print(f"Verifying password for user: {user_data.get('email', 'unknown')}")
+            result = bcrypt.checkpw(password.encode('utf-8'), user_data['password_hash'].encode('utf-8'))
+            print(f"Password verification result: {result}")
+            return result
+        except Exception as e:
+            print(f"Password verification error: {e}")
+            return False
     
     # Appointment Management
     def create_appointment(self, user_id, service, date, time, notes=None, attachment_url=None, attachment_filename=None):
