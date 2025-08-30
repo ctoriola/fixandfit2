@@ -4,130 +4,196 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="bg-blue-600 text-white py-16">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-        <h1 class="text-4xl font-bold mb-4">About Fix and Fit</h1>
-        <p class="text-xl">Making you fit again with expert care and compassion</p>
+<section class="bg-gradient-hero text-white py-32 relative overflow-hidden">
+    <!-- Abstract shapes -->
+    <div class="absolute top-0 left-0 w-full h-full">
+        <div class="absolute top-20 left-10 w-32 h-32 bg-white opacity-10 rounded-lg"></div>
+        <div class="absolute bottom-20 right-10 w-24 h-24 bg-white opacity-5 rounded-lg"></div>
+        <div class="absolute top-1/2 right-1/4 w-16 h-16 bg-white opacity-10 transform rotate-45"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+        <h1 class="text-6xl font-bold font-dm-sans mb-8 leading-tight">
+            About <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">Fix and Fit</span>
+        </h1>
+        <p class="text-xl font-dm-sans font-light mb-12 leading-relaxed opacity-90">
+            Making you fit again with expert care, compassion, and cutting-edge technology
+        </p>
+        <div class="flex items-center space-x-4 justify-center">
+            <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+            <span class="font-dm-sans font-semibold">Transforming Lives Since 2008</span>
+        </div>
     </div>
 </section>
 
-<!-- About Content -->
-<section class="py-16">
+<!-- Mission Section -->
+<section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Our Mission</h2>
-                <p class="text-lg text-gray-600 mb-6">
+                <h2 class="text-4xl font-bold font-dm-sans text-text-dark mb-8">Our Mission</h2>
+                <p class="text-lg text-text-medium font-dm-sans mb-6 leading-relaxed">
                     At Fix and Fit, we are dedicated to providing personalized, high-quality prosthetics, orthotics, and podorthotics solutions. 
                     Our mission is to help individuals regain their mobility, independence, and confidence through expert care and cutting-edge technology.
                 </p>
-                <p class="text-lg text-gray-600 mb-6">
+                <p class="text-lg text-text-medium font-dm-sans mb-8 leading-relaxed">
                     We believe that everyone deserves to live life to the fullest, regardless of physical challenges. 
                     That's why we're committed to delivering international quality products and services that make a real difference in our patients' lives.
                 </p>
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center">
+                        <i class="fas fa-award text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="font-dm-sans font-semibold text-text-dark">15+ Years of Excellence</p>
+                        <p class="text-text-medium font-dm-sans text-sm">Trusted by thousands of patients</p>
+                    </div>
+                </div>
             </div>
-            <div class="bg-gray-100 p-8 rounded-lg">
-                <h3 class="text-2xl font-bold text-gray-800 mb-4">Why Choose Us?</h3>
-                <ul class="space-y-3">
+            
+            <div class="bg-gradient-to-br from-secondary to-white rounded-3xl p-8 shadow-card">
+                <h3 class="text-2xl font-bold font-dm-sans text-text-dark mb-6 flex items-center">
+                    <i class="fas fa-star text-primary mr-3"></i>
+                    Why Choose Us?
+                </h3>
+                <ul class="space-y-4">
                     <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                        <span>Certified professionals with years of experience</span>
+                        <div class="w-2 h-2 bg-gradient-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+                        <span class="text-text-dark font-dm-sans">Certified professionals with 15+ years of experience</span>
                     </li>
                     <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                        <span>International quality standards and products</span>
+                        <div class="w-2 h-2 bg-gradient-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+                        <span class="text-text-dark font-dm-sans">International quality standards and FDA-approved products</span>
                     </li>
                     <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                        <span>Personalized care tailored to each patient</span>
+                        <div class="w-2 h-2 bg-gradient-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+                        <span class="text-text-dark font-dm-sans">Personalized care tailored to each patient's unique needs</span>
                     </li>
                     <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                        <span>Comprehensive follow-up and support</span>
+                        <div class="w-2 h-2 bg-gradient-primary rounded-full mt-3 mr-4 flex-shrink-0"></div>
+                        <span class="text-text-dark font-dm-sans">Comprehensive follow-up and 24/7 support services</span>
                     </li>
                 </ul>
+                <div class="mt-6 h-1 w-12 bg-gradient-primary rounded-lg"></div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Team Section -->
-<section class="bg-gray-100 py-16">
+<section class="py-24 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Expert Team</h2>
-            <p class="text-lg text-gray-600">Dedicated professionals committed to your care</p>
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold font-dm-sans text-text-dark mb-4">Our Expert Team</h2>
+            <p class="text-xl text-text-medium font-dm-sans">Dedicated professionals committed to transforming your mobility</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-                <div class="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-user-md text-3xl text-blue-600"></i>
+            <div class="bg-white rounded-3xl shadow-card hover:shadow-soft transition-all group p-8 text-center">
+                <div class="w-24 h-24 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-user-md text-3xl text-white"></i>
                 </div>
-                <h3 class="text-xl font-semibold mb-2">Dr. Sarah Johnson</h3>
-                <p class="text-gray-600 mb-2">Lead Prosthetist</p>
-                <p class="text-sm text-gray-500">15+ years experience in prosthetic design and fitting</p>
+                <h3 class="text-xl font-bold font-dm-sans text-text-dark mb-2">Dr. Sarah Johnson</h3>
+                <p class="text-primary font-dm-sans font-semibold mb-2">Lead Prosthetist</p>
+                <p class="text-text-medium font-dm-sans text-sm leading-relaxed">15+ years experience in prosthetic design and fitting with specialization in advanced myoelectric systems</p>
+                <div class="mt-4 h-1 w-12 bg-gradient-primary rounded-lg mx-auto"></div>
             </div>
             
-            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-                <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-user-md text-3xl text-green-600"></i>
+            <div class="bg-white rounded-3xl shadow-card hover:shadow-soft transition-all group p-8 text-center">
+                <div class="w-24 h-24 bg-gradient-accent rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-user-md text-3xl text-white"></i>
                 </div>
-                <h3 class="text-xl font-semibold mb-2">Michael Chen</h3>
-                <p class="text-gray-600 mb-2">Certified Orthotist</p>
-                <p class="text-sm text-gray-500">Specialist in spinal and limb orthotics</p>
+                <h3 class="text-xl font-bold font-dm-sans text-text-dark mb-2">Michael Chen</h3>
+                <p class="text-accent font-dm-sans font-semibold mb-2">Certified Orthotist</p>
+                <p class="text-text-medium font-dm-sans text-sm leading-relaxed">Specialist in spinal and limb orthotics with expertise in pediatric and sports orthotic solutions</p>
+                <div class="mt-4 h-1 w-12 bg-gradient-accent rounded-lg mx-auto"></div>
             </div>
             
-            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-                <div class="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-user-md text-3xl text-purple-600"></i>
+            <div class="bg-white rounded-3xl shadow-card hover:shadow-soft transition-all group p-8 text-center">
+                <div class="w-24 h-24 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-user-md text-3xl text-white"></i>
                 </div>
-                <h3 class="text-xl font-semibold mb-2">Dr. Emily Rodriguez</h3>
-                <p class="text-gray-600 mb-2">Podiatric Specialist</p>
-                <p class="text-sm text-gray-500">Expert in foot and ankle orthotics</p>
+                <h3 class="text-xl font-bold font-dm-sans text-text-dark mb-2">Dr. Emily Rodriguez</h3>
+                <p class="text-primary font-dm-sans font-semibold mb-2">Podiatric Specialist</p>
+                <p class="text-text-medium font-dm-sans text-sm leading-relaxed">Expert in foot and ankle orthotics with focus on diabetic care and sports performance enhancement</p>
+                <div class="mt-4 h-1 w-12 bg-gradient-primary rounded-lg mx-auto"></div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Values Section -->
-<section class="py-16">
+<section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Values</h2>
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold font-dm-sans text-text-dark mb-4">Our Core Values</h2>
+            <p class="text-xl text-text-medium font-dm-sans">The principles that guide everything we do</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div class="text-center">
-                <div class="bg-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div class="text-center group">
+                <div class="w-20 h-20 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
                     <i class="fas fa-heart text-white text-2xl"></i>
                 </div>
-                <h3 class="text-lg font-semibold mb-2">Compassion</h3>
-                <p class="text-gray-600">We care deeply about every patient's journey</p>
+                <h3 class="text-xl font-bold font-dm-sans text-text-dark mb-3">Compassion</h3>
+                <p class="text-text-medium font-dm-sans leading-relaxed">We care deeply about every patient's journey and provide empathetic, personalized care</p>
             </div>
             
-            <div class="text-center">
-                <div class="bg-green-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div class="text-center group">
+                <div class="w-20 h-20 bg-gradient-accent rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
                     <i class="fas fa-star text-white text-2xl"></i>
                 </div>
-                <h3 class="text-lg font-semibold mb-2">Excellence</h3>
-                <p class="text-gray-600">Committed to the highest quality standards</p>
+                <h3 class="text-xl font-bold font-dm-sans text-text-dark mb-3">Excellence</h3>
+                <p class="text-text-medium font-dm-sans leading-relaxed">Committed to the highest quality standards in products, services, and patient outcomes</p>
             </div>
             
-            <div class="text-center">
-                <div class="bg-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div class="text-center group">
+                <div class="w-20 h-20 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
                     <i class="fas fa-lightbulb text-white text-2xl"></i>
                 </div>
-                <h3 class="text-lg font-semibold mb-2">Innovation</h3>
-                <p class="text-gray-600">Using cutting-edge technology and techniques</p>
+                <h3 class="text-xl font-bold font-dm-sans text-text-dark mb-3">Innovation</h3>
+                <p class="text-text-medium font-dm-sans leading-relaxed">Using cutting-edge technology and advanced techniques to deliver superior results</p>
             </div>
             
-            <div class="text-center">
-                <div class="bg-red-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div class="text-center group">
+                <div class="w-20 h-20 bg-gradient-accent rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
                     <i class="fas fa-handshake text-white text-2xl"></i>
                 </div>
-                <h3 class="text-lg font-semibold mb-2">Integrity</h3>
-                <p class="text-gray-600">Honest, transparent, and ethical practices</p>
+                <h3 class="text-xl font-bold font-dm-sans text-text-dark mb-3">Integrity</h3>
+                <p class="text-text-medium font-dm-sans leading-relaxed">Honest, transparent, and ethical practices in all our patient interactions</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-24 bg-gradient-hero text-white relative overflow-hidden">
+    <!-- Abstract shapes -->
+    <div class="absolute top-0 left-0 w-full h-full">
+        <div class="absolute top-10 left-10 w-20 h-20 bg-white opacity-5 rounded-lg"></div>
+        <div class="absolute bottom-10 right-10 w-16 h-16 bg-white opacity-10 rounded-lg"></div>
+        <div class="absolute top-1/3 right-1/3 w-12 h-12 bg-white opacity-5 transform rotate-45"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+        <h2 class="text-4xl font-bold font-dm-sans mb-12">Our Impact in Numbers</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="text-5xl font-bold font-dm-sans mb-2">1000+</div>
+                <div class="text-lg font-dm-sans opacity-90">Happy Patients</div>
+            </div>
+            <div>
+                <div class="text-5xl font-bold font-dm-sans mb-2">15+</div>
+                <div class="text-lg font-dm-sans opacity-90">Years Experience</div>
+            </div>
+            <div>
+                <div class="text-5xl font-bold font-dm-sans mb-2">95%</div>
+                <div class="text-lg font-dm-sans opacity-90">Satisfaction Rate</div>
+            </div>
+            <div>
+                <div class="text-5xl font-bold font-dm-sans mb-2">24/7</div>
+                <div class="text-lg font-dm-sans opacity-90">Support Available</div>
             </div>
         </div>
     </div>

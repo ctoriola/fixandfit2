@@ -4,27 +4,59 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="bg-blue-600 text-white py-16">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-        <h1 class="text-4xl font-bold mb-4">Educational Resources</h1>
-        <p class="text-xl">Learn about prosthetics, orthotics, and mobility solutions</p>
+<section class="bg-gradient-hero text-white py-32 relative overflow-hidden">
+    <!-- Abstract shapes -->
+    <div class="absolute top-0 left-0 w-full h-full">
+        <div class="absolute top-20 left-10 w-32 h-32 bg-white opacity-10 rounded-lg"></div>
+        <div class="absolute bottom-20 right-10 w-24 h-24 bg-white opacity-5 rounded-lg"></div>
+        <div class="absolute top-1/2 right-1/4 w-16 h-16 bg-white opacity-10 transform rotate-45"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+        <h1 class="text-6xl font-bold font-dm-sans mb-8 leading-tight">
+            Educational <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">Resources</span>
+        </h1>
+        <p class="text-xl font-dm-sans font-light mb-12 leading-relaxed opacity-90">
+            Discover comprehensive guides, expert insights, and practical knowledge about prosthetics, orthotics, and mobility solutions
+        </p>
+        <div class="flex items-center space-x-6 justify-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-graduation-cap text-2xl"></i>
+                <span class="font-dm-sans font-semibold">Expert Knowledge</span>
+            </div>
+            <div class="w-2 h-2 bg-white rounded-full opacity-50"></div>
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-book-open text-2xl"></i>
+                <span class="font-dm-sans font-semibold">Practical Guides</span>
+            </div>
+        </div>
     </div>
 </section>
 
 <!-- Articles Section -->
-<section class="py-16">
+<section class="py-24 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4">
         {% if articles %}
+            <div class="mb-16 text-center">
+                <h2 class="text-4xl font-bold font-dm-sans text-text-dark mb-4">Latest Articles</h2>
+                <p class="text-xl font-dm-sans text-text-medium">Stay informed with our expert-written educational content</p>
+                <div class="mt-6 h-1 w-24 bg-gradient-primary rounded-lg mx-auto"></div>
+            </div>
+            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {% for article in articles %}
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-3">{{ article.title }}</h3>
-                            <p class="text-gray-600 mb-4">{{ article.content[:150] }}...</p>
+                    <div class="bg-white rounded-3xl shadow-card overflow-hidden hover:shadow-soft transition-all transform hover:scale-105">
+                        <div class="p-8">
+                            <div class="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mb-6">
+                                <i class="fas fa-file-alt text-white text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold font-dm-sans text-text-dark mb-4">{{ article.title }}</h3>
+                            <p class="text-text-medium font-dm-sans mb-6 leading-relaxed">{{ article.content[:150] }}...</p>
                             <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-500">{{ article.created_at.strftime('%B %d, %Y') }}</span>
+                                <span class="text-sm font-dm-sans text-text-light bg-secondary px-3 py-1 rounded-full">{{ article.created_at.strftime('%B %d, %Y') }}</span>
                                 <a href="{{ url_for('article_detail', article_id=article.id) }}" 
-                                   class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300">
+                                   class="bg-gradient-primary text-white px-6 py-2 rounded-xl font-dm-sans font-semibold hover:shadow-soft transition-all transform hover:scale-105">
+                                    <i class="fas fa-arrow-right mr-2"></i>
                                     Read More
                                 </a>
                             </div>
@@ -33,12 +65,111 @@
                 {% endfor %}
             </div>
         {% else %}
-            <div class="text-center py-12">
-                <i class="fas fa-book text-6xl text-gray-400 mb-4"></i>
-                <h2 class="text-2xl font-semibold text-gray-600 mb-2">No articles available yet</h2>
-                <p class="text-gray-500">Check back soon for educational content</p>
+            <div class="text-center py-20">
+                <div class="w-32 h-32 bg-gradient-primary rounded-3xl flex items-center justify-center mx-auto mb-8">
+                    <i class="fas fa-book text-white text-5xl"></i>
+                </div>
+                <h2 class="text-3xl font-bold font-dm-sans text-text-dark mb-4">No Articles Available Yet</h2>
+                <p class="text-xl font-dm-sans text-text-medium mb-8">We're working on creating valuable educational content for you</p>
+                <div class="bg-white rounded-2xl shadow-card p-8 max-w-md mx-auto">
+                    <h3 class="text-lg font-bold font-dm-sans text-text-dark mb-4">Coming Soon:</h3>
+                    <ul class="space-y-3 text-left">
+                        <li class="flex items-center font-dm-sans text-text-medium">
+                            <div class="w-2 h-2 bg-gradient-primary rounded-full mr-3"></div>
+                            Prosthetic care guides
+                        </li>
+                        <li class="flex items-center font-dm-sans text-text-medium">
+                            <div class="w-2 h-2 bg-gradient-primary rounded-full mr-3"></div>
+                            Orthotic fitting tips
+                        </li>
+                        <li class="flex items-center font-dm-sans text-text-medium">
+                            <div class="w-2 h-2 bg-gradient-primary rounded-full mr-3"></div>
+                            Mobility exercise routines
+                        </li>
+                        <li class="flex items-center font-dm-sans text-text-medium">
+                            <div class="w-2 h-2 bg-gradient-primary rounded-full mr-3"></div>
+                            Insurance navigation help
+                        </li>
+                    </ul>
+                </div>
             </div>
         {% endif %}
+    </div>
+</section>
+
+<!-- Educational Categories Section -->
+<section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold font-dm-sans text-text-dark mb-4">Learning Categories</h2>
+            <p class="text-xl font-dm-sans text-text-medium">Explore our comprehensive educational topics</p>
+            <div class="mt-6 h-1 w-24 bg-gradient-primary rounded-lg mx-auto"></div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="bg-gradient-to-br from-blue-50 to-white rounded-3xl p-8 shadow-card hover:shadow-soft transition-all">
+                <div class="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mb-6">
+                    <i class="fas fa-cog text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold font-dm-sans text-text-dark mb-3">Prosthetics</h3>
+                <p class="font-dm-sans text-text-medium mb-4">Learn about prosthetic devices, fitting, and maintenance</p>
+                <div class="h-1 w-12 bg-gradient-primary rounded-lg"></div>
+            </div>
+            
+            <div class="bg-gradient-to-br from-green-50 to-white rounded-3xl p-8 shadow-card hover:shadow-soft transition-all">
+                <div class="w-16 h-16 bg-gradient-accent rounded-2xl flex items-center justify-center mb-6">
+                    <i class="fas fa-shield-alt text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold font-dm-sans text-text-dark mb-3">Orthotics</h3>
+                <p class="font-dm-sans text-text-medium mb-4">Understand orthotic solutions and proper usage</p>
+                <div class="h-1 w-12 bg-gradient-accent rounded-lg"></div>
+            </div>
+            
+            <div class="bg-gradient-to-br from-purple-50 to-white rounded-3xl p-8 shadow-card hover:shadow-soft transition-all">
+                <div class="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mb-6">
+                    <i class="fas fa-running text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold font-dm-sans text-text-dark mb-3">Mobility</h3>
+                <p class="font-dm-sans text-text-medium mb-4">Discover exercises and mobility enhancement techniques</p>
+                <div class="h-1 w-12 bg-gradient-primary rounded-lg"></div>
+            </div>
+            
+            <div class="bg-gradient-to-br from-orange-50 to-white rounded-3xl p-8 shadow-card hover:shadow-soft transition-all">
+                <div class="w-16 h-16 bg-gradient-accent rounded-2xl flex items-center justify-center mb-6">
+                    <i class="fas fa-heart text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold font-dm-sans text-text-dark mb-3">Wellness</h3>
+                <p class="font-dm-sans text-text-medium mb-4">Explore overall health and wellness strategies</p>
+                <div class="h-1 w-12 bg-gradient-accent rounded-lg"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Signup -->
+<section class="py-24 bg-gradient-to-br from-secondary to-white">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <div class="bg-white rounded-3xl shadow-2xl p-12">
+            <div class="w-20 h-20 bg-gradient-primary rounded-3xl flex items-center justify-center mx-auto mb-8">
+                <i class="fas fa-envelope text-white text-3xl"></i>
+            </div>
+            <h2 class="text-3xl font-bold font-dm-sans text-text-dark mb-4">Stay Updated</h2>
+            <p class="text-xl font-dm-sans text-text-medium mb-8">Get the latest educational content and health tips delivered to your inbox</p>
+            
+            <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <input type="email" placeholder="Enter your email address" 
+                       class="flex-1 px-6 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all font-dm-sans">
+                <button type="submit" 
+                        class="bg-gradient-primary text-white px-8 py-3 rounded-xl font-dm-sans font-semibold hover:shadow-soft transition-all transform hover:scale-105">
+                    <i class="fas fa-paper-plane mr-2"></i>
+                    Subscribe
+                </button>
+            </form>
+            
+            <p class="text-sm font-dm-sans text-text-light mt-4">
+                We respect your privacy. Unsubscribe at any time.
+            </p>
+        </div>
     </div>
 </section>
 {% endblock %}
