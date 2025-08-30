@@ -1,206 +1,229 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard - Fix and Fit{% endblock %}
+{% block title %}Dashboard - Fix & Fit{% endblock %}
 
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 py-8">
-    <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-800">Welcome back, {{ current_user.first_name }}!</h1>
-        <p class="text-gray-600 mt-2">Manage your appointments and account information</p>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Quick Actions -->
-        <div class="lg:col-span-1">
-            <div class="bg-white rounded-lg shadow-lg p-6">
-                <h2 class="text-xl font-semibold mb-4">Quick Actions</h2>
-                <div class="space-y-3">
-                    <a href="{{ url_for('book_appointment') }}" 
-                       class="block w-full bg-blue-600 text-white text-center py-3 rounded-lg hover:bg-blue-700 transition duration-300">
-                        <i class="fas fa-calendar-plus mr-2"></i>Book New Appointment
+<div class="min-h-screen bg-gray-50">
+    <!-- Header -->
+    <div class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 py-6">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-3xl font-bold font-dm-sans text-text-dark">Welcome back, {{ current_user.first_name }}!</h1>
+                    <p class="text-text-medium font-dm-sans mt-1">Here's what's happening with your health journey</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="{{ url_for('book_appointment') }}" class="bg-gradient-primary text-white px-6 py-3 rounded-xl font-dm-sans font-semibold hover:shadow-soft transition-all transform hover:scale-105">
+                        <i class="fas fa-calendar-plus mr-2"></i>
+                        Book Appointment
                     </a>
-                    <a href="{{ url_for('education') }}" 
-                       class="block w-full bg-green-600 text-white text-center py-3 rounded-lg hover:bg-green-700 transition duration-300">
-                        <i class="fas fa-book mr-2"></i>Educational Resources
+                    <a href="{{ url_for('logout') }}" class="bg-gray-100 text-text-dark px-6 py-3 rounded-xl font-dm-sans font-semibold hover:bg-gray-200 transition-all">
+                        <i class="fas fa-sign-out-alt mr-2"></i>
+                        Logout
                     </a>
-                    <a href="{{ url_for('contact') }}" 
-                       class="block w-full bg-purple-600 text-white text-center py-3 rounded-lg hover:bg-purple-700 transition duration-300">
-                        <i class="fas fa-phone mr-2"></i>Contact Support
-                    </a>
-                </div>
-            </div>
-
-            <!-- Account Info -->
-            <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
-                <h2 class="text-xl font-semibold mb-4">Account Information</h2>
-                <div class="space-y-2 text-sm">
-                    <p><strong>Name:</strong> {{ current_user.first_name }} {{ current_user.last_name }}</p>
-                    <p><strong>Email:</strong> {{ current_user.email }}</p>
-                    {% if current_user.phone %}
-                        <p><strong>Phone:</strong> {{ current_user.phone }}</p>
-                    {% endif %}
-                    <p><strong>Member since:</strong> {{ current_user.created_at.strftime('%B %Y') if current_user.created_at else 'N/A' }}</p>
-                </div>
-            </div>
-
-            <!-- Patient Card Details -->
-            <div class="bg-white rounded-lg shadow-lg p-6 mt-6" data-aos="fade-up">
-                <h2 class="text-xl font-semibold mb-4 text-primary">
-                    <i class="fas fa-id-card mr-2"></i>Patient Card Details
-                </h2>
-                <div class="bg-gradient-primary rounded-lg p-4 text-white mb-4">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="text-sm opacity-90">Patient Card Number</p>
-                            <p class="text-2xl font-bold">{{ current_user.patient_card_number or 'N/A' }}</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-sm opacity-90">Fix and Fit</p>
-                            <p class="text-lg font-semibold">Healthcare</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="grid grid-cols-1 gap-4">
-                    <div class="border-l-4 border-primary pl-4">
-                        <p class="text-sm text-gray-600">Date of Birth</p>
-                        <p class="font-semibold">{{ current_user.date_of_birth or 'Not provided' }}</p>
-                    </div>
-                    
-                    {% if current_user.address %}
-                    <div class="border-l-4 border-accent pl-4">
-                        <p class="text-sm text-gray-600">Address</p>
-                        <p class="font-semibold">{{ current_user.address }}</p>
-                    </div>
-                    {% endif %}
-                    
-                    {% if current_user.emergency_contact %}
-                    <div class="border-l-4 border-red-500 pl-4">
-                        <p class="text-sm text-gray-600">Emergency Contact</p>
-                        <p class="font-semibold">{{ current_user.emergency_contact }}</p>
-                        {% if current_user.emergency_phone %}
-                            <p class="text-sm text-gray-500">{{ current_user.emergency_phone }}</p>
-                        {% endif %}
-                    </div>
-                    {% endif %}
-                </div>
-                
-                <div class="mt-4 pt-4 border-t border-gray-200">
-                    <p class="text-xs text-gray-500 text-center">
-                        <i class="fas fa-shield-alt mr-1"></i>
-                        Your patient information is secure and confidential
-                    </p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Appointments -->
-        <div class="lg:col-span-2">
-            <div class="bg-white rounded-lg shadow-lg p-6">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-semibold">Your Appointments</h2>
-                    <a href="{{ url_for('book_appointment') }}" 
-                       class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
-                        <i class="fas fa-plus mr-2"></i>New Appointment
-                    </a>
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Account & Patient Card -->
+            <div class="lg:col-span-1 space-y-6">
+                <!-- Account Information -->
+                <div class="bg-white rounded-2xl shadow-card p-6">
+                    <h2 class="text-xl font-bold font-dm-sans text-text-dark mb-6 flex items-center">
+                        <i class="fas fa-user-circle text-primary mr-3"></i>
+                        Account Information
+                    </h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium font-dm-sans text-text-medium">Full Name</label>
+                            <p class="font-dm-sans text-text-dark font-semibold">{{ current_user.first_name }} {{ current_user.last_name }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium font-dm-sans text-text-medium">Email</label>
+                            <p class="font-dm-sans text-text-dark">{{ current_user.email }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium font-dm-sans text-text-medium">Phone</label>
+                            <p class="font-dm-sans text-text-dark">{{ current_user.phone }}</p>
+                        </div>
+                    </div>
                 </div>
 
-                {% if appointments %}
+                <!-- Patient Card Details -->
+                <div class="bg-white rounded-2xl shadow-card p-6">
+                    <h2 class="text-xl font-bold font-dm-sans text-text-dark mb-6 flex items-center">
+                        <i class="fas fa-id-card text-green-600 mr-3"></i>
+                        Patient Card
+                    </h2>
+                    
+                    <!-- Patient Card Visual -->
+                    <div class="bg-gradient-to-r from-green-500 to-blue-600 rounded-xl p-4 text-white mb-4 transform hover:scale-105 transition-transform duration-300">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="text-sm font-semibold font-dm-sans">Fix & Fit Healthcare</h3>
+                                <p class="text-green-100 font-dm-sans text-xs">Patient Card</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xs text-green-100 font-dm-sans">Card Number</p>
+                                <p class="text-lg font-bold font-dm-sans">{{ current_user.patient_card_number or 'N/A' }}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold font-dm-sans">{{ current_user.first_name }} {{ current_user.last_name }}</p>
+                            <p class="text-green-100 font-dm-sans text-xs">{{ current_user.email }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Patient Details -->
+                    {% if current_user.date_of_birth or current_user.address or current_user.emergency_contact %}
+                    <div class="space-y-3">
+                        {% if current_user.date_of_birth %}
+                        <div class="p-3 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                            <label class="block text-xs font-medium font-dm-sans text-blue-700">Date of Birth</label>
+                            <p class="font-dm-sans text-blue-900 font-semibold text-sm">{{ current_user.date_of_birth }}</p>
+                        </div>
+                        {% endif %}
+                        
+                        {% if current_user.address %}
+                        <div class="p-3 bg-green-50 rounded-lg border-l-4 border-green-500">
+                            <label class="block text-xs font-medium font-dm-sans text-green-700">Address</label>
+                            <p class="font-dm-sans text-green-900 text-sm">{{ current_user.address }}</p>
+                        </div>
+                        {% endif %}
+                        
+                        {% if current_user.emergency_contact %}
+                        <div class="p-3 bg-red-50 rounded-lg border-l-4 border-red-500">
+                            <label class="block text-xs font-medium font-dm-sans text-red-700">Emergency Contact</label>
+                            <p class="font-dm-sans text-red-900 font-semibold text-sm">{{ current_user.emergency_contact }}</p>
+                            {% if current_user.emergency_phone %}
+                            <p class="font-dm-sans text-red-700 text-xs">{{ current_user.emergency_phone }}</p>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="p-3 bg-purple-50 rounded-lg border-l-4 border-purple-500">
+                            <label class="block text-xs font-medium font-dm-sans text-purple-700">Member Since</label>
+                            <p class="font-dm-sans text-purple-900 font-semibold text-sm">{{ current_user.created_at.strftime('%B %Y') if current_user.created_at else 'N/A' }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="mt-4 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <div class="flex items-start">
+                            <i class="fas fa-info-circle text-yellow-600 mt-1 mr-2"></i>
+                            <div>
+                                <p class="text-xs font-dm-sans text-yellow-800">
+                                    <strong>Confidentiality Notice:</strong> Your patient information is kept strictly confidential and secure.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content - Appointments & History -->
+            <div class="lg:col-span-3 space-y-8">
+                <!-- Recent Appointments -->
+                <div class="bg-white rounded-2xl shadow-card p-6">
+                    <h2 class="text-2xl font-bold font-dm-sans text-text-dark mb-6 flex items-center">
+                        <i class="fas fa-calendar-alt text-primary mr-3"></i>
+                        Your Recent Appointments
+                    </h2>
+                    
                     <div class="space-y-4">
-                        {% for appointment in appointments %}
-                            <div class="border border-gray-200 rounded-lg p-4">
-                                <div class="flex justify-between items-start">
+                        {% if appointments %}
+                            {% for appointment in appointments %}
+                            <div class="border border-gray-200 rounded-xl p-6 hover:shadow-soft transition-all duration-300 transform hover:scale-[1.02]">
+                                <div class="flex justify-between items-start mb-4">
                                     <div>
-                                        <h3 class="font-semibold text-lg">{{ appointment.service }}</h3>
-                                        <p class="text-gray-600">
-                                            <i class="fas fa-calendar mr-2"></i>
-                                            {{ appointment.date }} at {{ appointment.time }}
-                                        </p>
-                                        {% if appointment.notes %}
-                                            <p class="text-gray-600 mt-2">
-                                                <i class="fas fa-sticky-note mr-2"></i>
-                                                {{ appointment.notes }}
-                                            </p>
-                                        {% endif %}
+                                        <h3 class="text-lg font-semibold font-dm-sans text-text-dark">{{ appointment.service }}</h3>
+                                        <p class="text-text-medium font-dm-sans">{{ appointment.date }} at {{ appointment.time }}</p>
                                     </div>
-                                    <div>
+                                    <div class="flex items-center space-x-3">
                                         {% if appointment.status == 'pending' %}
-                                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">
-                                                Pending
-                                            </span>
-                                        {% elif appointment.status == 'scheduled' %}
-                                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-                                                Scheduled
-                                            </span>
+                                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-lg text-sm font-dm-sans font-medium">Pending</span>
+                                        {% elif appointment.status == 'confirmed' %}
+                                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-lg text-sm font-dm-sans font-medium">Confirmed</span>
                                         {% elif appointment.status == 'completed' %}
-                                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                                                Completed
-                                            </span>
+                                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-lg text-sm font-dm-sans font-medium">Completed</span>
                                         {% elif appointment.status == 'cancelled' %}
-                                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">
-                                                Cancelled
-                                            </span>
+                                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-lg text-sm font-dm-sans font-medium">Cancelled</span>
                                         {% endif %}
                                     </div>
                                 </div>
+                                {% if appointment.notes %}
+                                <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                                    <p class="text-sm font-dm-sans text-text-medium"><strong>Notes:</strong> {{ appointment.notes }}</p>
+                                </div>
+                                {% endif %}
+                                {% if appointment.attachment_url %}
+                                <div class="flex items-center text-sm text-primary">
+                                    <i class="fas fa-paperclip mr-2"></i>
+                                    <a href="{{ appointment.attachment_url }}" target="_blank" class="hover:underline font-dm-sans">{{ appointment.attachment_filename or 'View Attachment' }}</a>
+                                </div>
+                                {% endif %}
                             </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="text-center py-12">
+                                <i class="fas fa-calendar-times text-6xl text-gray-300 mb-4"></i>
+                                <h3 class="text-xl font-semibold font-dm-sans text-text-medium mb-2">No appointments yet</h3>
+                                <p class="text-gray-500 mb-4">Book your first appointment to get started</p>
+                                <a href="{{ url_for('book_appointment') }}" 
+                                   class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+                                    Book Appointment
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Medical History Section -->
+                {% if patient_history %}
+                <div class="bg-white rounded-2xl shadow-card p-6">
+                    <h2 class="text-2xl font-bold font-dm-sans text-text-dark mb-6 flex items-center">
+                        <svg class="w-6 h-6 mr-2 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        Your Medical History
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        {% for diagnosis in patient_history %}
+                        <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-semibold text-gray-900 font-dm-sans">{{ diagnosis.diagnosis }}</h3>
+                                <span class="px-2 py-1 text-xs rounded-full font-dm-sans
+                                           {% if diagnosis.status == 'active' %}bg-red-100 text-red-800{% else %}bg-green-100 text-green-800{% endif %}">
+                                    {{ diagnosis.status|title }}
+                                </span>
+                            </div>
+                            
+                            <div class="mb-2">
+                                <p class="text-sm font-medium text-gray-700 font-dm-sans">Treatment:</p>
+                                <p class="text-gray-600 font-dm-sans">{{ diagnosis.treatment }}</p>
+                            </div>
+                            
+                            {% if diagnosis.notes %}
+                            <div class="mb-2">
+                                <p class="text-sm font-medium text-gray-700 font-dm-sans">Notes:</p>
+                                <p class="text-gray-600 font-dm-sans">{{ diagnosis.notes }}</p>
+                            </div>
+                            {% endif %}
+                            
+                            <div class="text-sm text-gray-500 mt-3 pt-3 border-t font-dm-sans">
+                                <span>{{ diagnosis.created_at.strftime('%B %d, %Y at %I:%M %p') if diagnosis.created_at else 'Date not available' }}</span>
+                            </div>
+                        </div>
                         {% endfor %}
                     </div>
-                {% else %}
-                    <div class="text-center py-8">
-                        <i class="fas fa-calendar-times text-4xl text-gray-400 mb-4"></i>
-                        <h3 class="text-lg font-medium text-gray-600 mb-2">No appointments yet</h3>
-                        <p class="text-gray-500 mb-4">Book your first appointment to get started</p>
-                        <a href="{{ url_for('book_appointment') }}" 
-                           class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
-                            Book Appointment
-                        </a>
-                    </div>
+                </div>
                 {% endif %}
             </div>
         </div>
     </div>
-
-    <!-- Patient History Section -->
-    {% if patient_history %}
-    <div class="bg-white rounded-2xl shadow-card p-6 mt-8">
-        <h2 class="text-2xl font-bold font-dm-sans text-text-dark mb-6 flex items-center">
-            <svg class="w-6 h-6 mr-2 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-            </svg>
-            Your Medical History
-        </h2>
-        
-        <div class="space-y-4">
-            {% for diagnosis in patient_history %}
-            <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                <div class="flex justify-between items-start mb-2">
-                    <h3 class="font-semibold text-gray-900 font-dm-sans">{{ diagnosis.diagnosis }}</h3>
-                    <span class="px-2 py-1 text-xs rounded-full font-dm-sans
-                               {% if diagnosis.status == 'active' %}bg-red-100 text-red-800{% else %}bg-green-100 text-green-800{% endif %}">
-                        {{ diagnosis.status|title }}
-                    </span>
-                </div>
-                
-                <div class="mb-2">
-                    <p class="text-sm font-medium text-gray-700 font-dm-sans">Treatment:</p>
-                    <p class="text-gray-600 font-dm-sans">{{ diagnosis.treatment }}</p>
-                </div>
-                
-                {% if diagnosis.notes %}
-                <div class="mb-2">
-                    <p class="text-sm font-medium text-gray-700 font-dm-sans">Notes:</p>
-                    <p class="text-gray-600 font-dm-sans">{{ diagnosis.notes }}</p>
-                </div>
-                {% endif %}
-                
-                <div class="text-sm text-gray-500 mt-3 pt-3 border-t font-dm-sans">
-                    <span>{{ diagnosis.created_at.strftime('%B %d, %Y at %I:%M %p') if diagnosis.created_at else 'Date not available' }}</span>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-    {% endif %}
 </div>
 {% endblock %}

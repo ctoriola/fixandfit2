@@ -360,6 +360,50 @@ def add_diagnosis(user_id):
     
     return render_template('admin/add_diagnosis.html', user=user)
 
+@app.route('/admin/edit_patient/<user_id>', methods=['GET', 'POST'])
+@login_required
+def edit_patient_details(user_id):
+    if not current_user.is_admin:
+        flash('Access denied', 'error')
+        return redirect(url_for('dashboard'))
+    
+    user = firebase_db.get_user_by_id(user_id)
+    if not user:
+        flash('User not found', 'error')
+        return redirect(url_for('admin_users'))
+    
+    if request.method == 'POST':
+        # Get form data
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        email = request.form.get('email')
+        phone = request.form.get('phone')
+        date_of_birth = request.form.get('date_of_birth')
+        address = request.form.get('address')
+        emergency_contact = request.form.get('emergency_contact')
+        emergency_phone = request.form.get('emergency_phone')
+        
+        # Update user data
+        success = firebase_db.update_user_details(
+            user_id=user_id,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            phone=phone,
+            date_of_birth=date_of_birth,
+            address=address,
+            emergency_contact=emergency_contact,
+            emergency_phone=emergency_phone
+        )
+        
+        if success:
+            flash('Patient details updated successfully', 'success')
+            return redirect(url_for('admin_view_user', user_id=user_id))
+        else:
+            flash('Failed to update patient details', 'error')
+    
+    return render_template('admin/edit_patient.html', user=user)
+
 @app.route('/admin/update_diagnosis_status/<diagnosis_id>/<status>', methods=['POST'])
 @login_required
 def update_diagnosis_status(diagnosis_id, status):

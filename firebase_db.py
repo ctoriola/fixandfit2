@@ -199,8 +199,40 @@ class FirebaseDB:
             return admin_data
         except Exception as e:
             print(f"Error in create_admin_user: {e}")
-            return None
+            return False
     
+    def update_user_details(self, user_id, first_name, last_name, email, phone, date_of_birth=None, address=None, emergency_contact=None, emergency_phone=None):
+        """Update user details in Firestore"""
+        if not self.db:
+            return False
+        
+        try:
+            update_data = {
+                'first_name': first_name,
+                'last_name': last_name,
+                'email': email,
+                'phone': phone,
+                'updated_at': datetime.utcnow()
+            }
+            
+            # Add optional fields if provided
+            if date_of_birth:
+                update_data['date_of_birth'] = date_of_birth
+            if address:
+                update_data['address'] = address
+            if emergency_contact:
+                update_data['emergency_contact'] = emergency_contact
+            if emergency_phone:
+                update_data['emergency_phone'] = emergency_phone
+            
+            self.db.collection('users').document(user_id).update(update_data)
+            print(f"Updated user details for user_id: {user_id}")
+            return True
+            
+        except Exception as e:
+            print(f"Error updating user details: {e}")
+            return False
+
     # Diagnosis and Patient History Management
     def create_diagnosis(self, user_id, diagnosis, treatment, notes=None, created_by_admin=None):
         """Create a new diagnosis for a patient"""
