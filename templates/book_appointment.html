@@ -3,88 +3,159 @@
 {% block title %}Book Appointment - Fix and Fit{% endblock %}
 
 {% block content %}
-<div class="max-w-2xl mx-auto px-4 py-8">
-    <div class="bg-white rounded-lg shadow-lg p-8">
-        <h1 class="text-3xl font-bold text-gray-800 mb-6">Book an Appointment</h1>
+<!-- Book Appointment Section -->
+<section class="min-h-screen bg-gray-50 py-12">
+    <div class="max-w-7xl mx-auto px-4">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold font-dm-sans text-text-dark mb-4">Book Your Appointment</h1>
+            <p class="text-xl text-text-medium font-dm-sans">Schedule your consultation with our expert team</p>
+        </div>
         
-        <form method="POST" enctype="multipart/form-data" class="space-y-6">
-            <div>
-                <label for="service_type" class="block text-sm font-medium text-gray-700 mb-2">Service Type</label>
-                <select id="service_type" name="service_type" required 
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">Select a service</option>
-                    <option value="Prosthetics Consultation">Prosthetics Consultation</option>
-                    <option value="Orthotics Consultation">Orthotics Consultation</option>
-                    <option value="Podorthotics Consultation">Podorthotics Consultation</option>
-                    <option value="Fitting Appointment">Fitting Appointment</option>
-                    <option value="Follow-up Visit">Follow-up Visit</option>
-                    <option value="Repair Service">Repair Service</option>
-                </select>
-            </div>
-            
-            <div>
-                <label for="appointment_date" class="block text-sm font-medium text-gray-700 mb-2">Preferred Date & Time</label>
-                <input type="datetime-local" id="appointment_date" name="appointment_date" required 
-                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                       min="">
-            </div>
-            
-            <div class="mb-6">
-                <label for="notes" class="block text-sm font-medium text-gray-700 mb-2">Additional Notes (Optional)</label>
-                <textarea id="notes" name="notes" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Any specific requirements or information..."></textarea>
-            </div>
-
-            <div class="mb-6">
-                <label for="attachment" class="block text-sm font-medium text-gray-700 mb-2">Attach Files (Optional)</label>
-                <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-400 transition-colors">
-                    <div class="space-y-1 text-center">
-                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <div class="flex text-sm text-gray-600">
-                            <label for="attachment" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
-                                <span>Upload a file</span>
-                                <input id="attachment" name="attachment" type="file" class="sr-only" accept=".pdf,.png,.jpg,.jpeg,.gif,.doc,.docx">
-                            </label>
-                            <p class="pl-1">or drag and drop</p>
+        <div class="grid lg:grid-cols-2 gap-12 items-start">
+            <!-- Left side - Service information -->
+            <div class="space-y-8">
+                <div class="bg-white rounded-3xl shadow-card p-8">
+                    <h2 class="text-2xl font-bold font-dm-sans text-text-dark mb-6 flex items-center">
+                        <i class="fas fa-medical-kit text-primary mr-3"></i>
+                        Our Services
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-walking text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-dm-sans font-semibold text-text-dark mb-2">Prosthetics</h3>
+                                <p class="text-text-medium font-dm-sans text-sm">Custom artificial limbs designed for optimal function and comfort</p>
+                            </div>
                         </div>
-                        <p class="text-xs text-gray-500">PDF, PNG, JPG, GIF, DOC up to 10MB</p>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-gradient-accent rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-user-md text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-dm-sans font-semibold text-text-dark mb-2">Orthotics</h3>
+                                <p class="text-text-medium font-dm-sans text-sm">Support devices to correct and improve body function</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-shoe-prints text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-dm-sans font-semibold text-text-dark mb-2">Podorthotics</h3>
+                                <p class="text-text-medium font-dm-sans text-sm">Specialized foot solutions for enhanced mobility</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div id="file-info" class="mt-2 text-sm text-gray-600 hidden">
-                    <span id="file-name"></span>
-                    <button type="button" id="remove-file" class="ml-2 text-red-600 hover:text-red-800">Remove</button>
+                
+                <div class="bg-blue-50 rounded-3xl border border-blue-200 p-8">
+                    <div class="flex items-start">
+                        <i class="fas fa-info-circle text-blue-600 text-2xl mt-1 mr-4"></i>
+                        <div>
+                            <h3 class="text-lg font-semibold font-dm-sans text-blue-900 mb-4">Appointment Guidelines</h3>
+                            <ul class="space-y-3 text-blue-800 font-dm-sans">
+                                <li class="flex items-start">
+                                    <i class="fas fa-clock text-blue-600 mt-1 mr-3 text-sm"></i>
+                                    <span class="text-sm">Arrive 15 minutes early for your appointment</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-file-medical text-blue-600 mt-1 mr-3 text-sm"></i>
+                                    <span class="text-sm">Bring relevant medical records or prescriptions</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-tshirt text-blue-600 mt-1 mr-3 text-sm"></i>
+                                    <span class="text-sm">Wear comfortable, loose-fitting clothing</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-blue-600 mt-1 mr-3 text-sm"></i>
+                                    <span class="text-sm">We'll confirm your appointment within 24 hours</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
-                <div class="flex">
-                    <i class="fas fa-info-circle text-blue-400 mt-0.5 mr-3"></i>
-                    <div class="text-sm text-blue-700">
-                        <p class="font-medium mb-1">Appointment Guidelines:</p>
-                        <ul class="list-disc list-inside space-y-1">
-                            <li>Please arrive 15 minutes early for your appointment</li>
-                            <li>Bring any relevant medical records or prescriptions</li>
-                            <li>Wear comfortable, loose-fitting clothing</li>
-                            <li>We'll confirm your appointment within 24 hours</li>
-                        </ul>
-                    </div>
+            <!-- Right side - Booking form -->
+            <div class="bg-white rounded-3xl shadow-2xl p-8">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold font-dm-sans text-text-dark mb-2">Schedule Your Visit</h2>
+                    <p class="text-text-medium font-dm-sans">Fill out the form below to book your appointment</p>
                 </div>
+                
+                <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                    <div>
+                        <label for="service_type" class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Service Type</label>
+                        <select id="service_type" name="service_type" required 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all font-dm-sans">
+                            <option value="">Select a service</option>
+                            <option value="Prosthetics Consultation">Prosthetics Consultation</option>
+                            <option value="Orthotics Consultation">Orthotics Consultation</option>
+                            <option value="Podorthotics Consultation">Podorthotics Consultation</option>
+                            <option value="Fitting Appointment">Fitting Appointment</option>
+                            <option value="Follow-up Visit">Follow-up Visit</option>
+                            <option value="Repair Service">Repair Service</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="appointment_date" class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Preferred Date & Time</label>
+                        <input type="datetime-local" id="appointment_date" name="appointment_date" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all font-dm-sans"
+                               min="">
+                    </div>
+                    
+                    <div>
+                        <label for="notes" class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Additional Notes (Optional)</label>
+                        <textarea id="notes" name="notes" rows="4" 
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all font-dm-sans resize-none" 
+                                  placeholder="Any specific requirements or information..."></textarea>
+                    </div>
+
+                    <div>
+                        <label for="attachment" class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Attach Files (Optional)</label>
+                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl hover:border-primary transition-colors">
+                            <div class="space-y-1 text-center">
+                                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <div class="flex text-sm text-gray-600 font-dm-sans">
+                                    <label for="attachment" class="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-primary/80 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary">
+                                        <span>Upload a file</span>
+                                        <input id="attachment" name="attachment" type="file" class="sr-only" accept=".pdf,.png,.jpg,.jpeg,.gif,.doc,.docx">
+                                    </label>
+                                    <p class="pl-1">or drag and drop</p>
+                                </div>
+                                <p class="text-xs text-gray-500 font-dm-sans">PDF, PNG, JPG, GIF, DOC up to 10MB</p>
+                            </div>
+                        </div>
+                        <div id="file-info" class="mt-2 text-sm text-gray-600 font-dm-sans hidden">
+                            <span id="file-name"></span>
+                            <button type="button" id="remove-file" class="ml-2 text-red-600 hover:text-red-800">Remove</button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-4 pt-6">
+                        <button type="submit" 
+                                class="flex-1 bg-gradient-primary text-white py-3 px-6 rounded-xl font-dm-sans font-semibold hover:shadow-soft transition-all transform hover:scale-105">
+                            <i class="fas fa-calendar-check mr-2"></i>Book Appointment
+                        </button>
+                        <a href="{{ url_for('dashboard') }}" 
+                           class="flex-1 bg-gray-100 text-text-dark py-3 px-6 rounded-xl font-dm-sans font-semibold text-center hover:bg-gray-200 transition-all">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
             </div>
-            
-            <div class="flex space-x-4">
-                <button type="submit" 
-                        class="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition duration-300">
-                    <i class="fas fa-calendar-check mr-2"></i>Book Appointment
-                </button>
-                <a href="{{ url_for('dashboard') }}" 
-                   class="flex-1 bg-gray-300 text-gray-700 py-3 px-6 rounded-lg font-semibold text-center hover:bg-gray-400 transition duration-300">
-                    Cancel
-                </a>
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+</section>
 
 <script>
     // Set minimum date to tomorrow

@@ -7,17 +7,17 @@
     <!-- Header -->
     <div class="bg-white shadow-sm border-b">
         <div class="max-w-7xl mx-auto px-4 py-6">
-            <div class="flex justify-between items-center">
+            <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center space-y-4 lg:space-y-0">
                 <div>
-                    <h1 class="text-3xl font-bold font-dm-sans text-text-dark">Welcome back, {{ current_user.first_name }}!</h1>
-                    <p class="text-text-medium font-dm-sans mt-1">Here's what's happening with your health journey</p>
+                    <h1 class="text-2xl sm:text-3xl font-bold font-dm-sans text-text-dark">Welcome back, {{ current_user.first_name }}!</h1>
+                    <p class="text-text-medium font-dm-sans mt-1 text-sm sm:text-base">Here's what's happening with your health journey</p>
                 </div>
-                <div class="flex space-x-4">
-                    <a href="{{ url_for('book_appointment') }}" class="bg-gradient-primary text-white px-6 py-3 rounded-xl font-dm-sans font-semibold hover:shadow-soft transition-all transform hover:scale-105">
+                <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                    <a href="{{ url_for('book_appointment') }}" class="bg-gradient-primary text-white px-4 sm:px-6 py-3 rounded-xl font-dm-sans font-semibold hover:shadow-soft transition-all transform hover:scale-105 text-center">
                         <i class="fas fa-calendar-plus mr-2"></i>
                         Book Appointment
                     </a>
-                    <a href="{{ url_for('logout') }}" class="bg-gray-100 text-text-dark px-6 py-3 rounded-xl font-dm-sans font-semibold hover:bg-gray-200 transition-all">
+                    <a href="{{ url_for('logout') }}" class="bg-gray-100 text-text-dark px-4 sm:px-6 py-3 rounded-xl font-dm-sans font-semibold hover:bg-gray-200 transition-all text-center">
                         <i class="fas fa-sign-out-alt mr-2"></i>
                         Logout
                     </a>

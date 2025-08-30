@@ -3,95 +3,140 @@
 {% block title %}Register - Fix and Fit{% endblock %}
 
 {% block content %}
-<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8">
-        <div>
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                Create your account
-            </h2>
-            <p class="mt-2 text-center text-sm text-gray-600">
-                Or
-                <a href="{{ url_for('login') }}" class="font-medium text-blue-600 hover:text-blue-500">
-                    sign in to existing account
-                </a>
-            </p>
-        </div>
-        <form class="mt-8 space-y-6" method="POST">
-            <div class="space-y-4">
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
-                        <input id="first_name" name="first_name" type="text" required 
-                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                    </div>
-                    <div>
-                        <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
-                        <input id="last_name" name="last_name" type="text" required 
-                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                    </div>
-                </div>
-                
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                    <input id="email" name="email" type="email" required 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                </div>
-                
-                <div>
-                    <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
-                    <input id="phone" name="phone" type="tel" 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                </div>
-                
-                <div>
-                    <label for="date_of_birth" class="block text-sm font-medium text-gray-700">Date of Birth</label>
-                    <input id="date_of_birth" name="date_of_birth" type="date" required 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                </div>
-                
-                <div>
-                    <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
-                    <textarea id="address" name="address" rows="2" 
-                              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
-                </div>
-                
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label for="emergency_contact" class="block text-sm font-medium text-gray-700">Emergency Contact</label>
-                        <input id="emergency_contact" name="emergency_contact" type="text" 
-                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                    </div>
-                    <div>
-                        <label for="emergency_phone" class="block text-sm font-medium text-gray-700">Emergency Phone</label>
-                        <input id="emergency_phone" name="emergency_phone" type="tel" 
-                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                    </div>
-                </div>
-                
-                <div>
-                    <label for="patient_card_number" class="block text-sm font-medium text-gray-700">Patient Card Number (Optional)</label>
-                    <input id="patient_card_number" name="patient_card_number" type="text" placeholder="Leave blank to auto-generate"
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                    <p class="mt-1 text-xs text-gray-500">If left blank, a patient card number will be automatically generated for you</p>
-                </div>
-                
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input id="password" name="password" type="password" required 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                </div>
-            </div>
-
-            <div>
-                <button type="submit" 
-                        class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                        <i class="fas fa-user-plus text-blue-500 group-hover:text-blue-400"></i>
-                    </span>
-                    Create Account
-                </button>
-            </div>
-        </form>
+<!-- Register Section with Hero Background -->
+<section class="min-h-screen bg-gradient-hero relative overflow-hidden flex items-center py-12">
+    <!-- Abstract shapes -->
+    <div class="absolute top-0 left-0 w-full h-full">
+        <div class="absolute top-20 left-10 w-32 h-32 bg-white opacity-10 rounded-lg"></div>
+        <div class="absolute bottom-20 right-10 w-24 h-24 bg-white opacity-5 rounded-lg"></div>
+        <div class="absolute top-1/2 right-1/4 w-16 h-16 bg-white opacity-10 transform rotate-45"></div>
     </div>
-</div>
+    
+    <div class="max-w-7xl mx-auto px-4 w-full relative z-10">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <!-- Left side - Welcome content -->
+            <div class="text-white text-center lg:text-left">
+                <h1 class="text-5xl font-bold font-dm-sans mb-6 leading-tight">
+                    Start Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">Journey</span>
+                </h1>
+                <p class="text-xl font-dm-sans font-light mb-8 leading-relaxed opacity-90">
+                    Join thousands of patients who have transformed their mobility with personalized prosthetics, orthotics, and podorthotics solutions.
+                </p>
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-4 justify-center lg:justify-start">
+                        <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                        <span class="font-dm-sans font-semibold">Secure Registration</span>
+                    </div>
+                    <div class="flex items-center space-x-4 justify-center lg:justify-start">
+                        <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                        <span class="font-dm-sans">Instant Patient Card Generation</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right side - Registration form -->
+            <div class="flex justify-center lg:justify-end">
+                <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-lg">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold font-dm-sans text-text-dark mb-2">
+                            Create Account
+                        </h2>
+                        <p class="text-text-medium font-dm-sans">
+                            Join the Fix and Fit family
+                        </p>
+                    </div>
+                    
+                    <form method="POST" class="space-y-6">
+                        <!-- Personal Information -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="first_name" class="block text-sm font-medium font-dm-sans text-text-dark mb-2">First Name</label>
+                                <input id="first_name" name="first_name" type="text" required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all font-dm-sans">
+                            </div>
+                            <div>
+                                <label for="last_name" class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Last Name</label>
+                                <input id="last_name" name="last_name" type="text" required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all font-dm-sans">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Email Address</label>
+                            <input id="email" name="email" type="email" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all font-dm-sans">
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="phone" class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Phone Number</label>
+                                <input id="phone" name="phone" type="tel" 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all font-dm-sans">
+                            </div>
+                            <div>
+                                <label for="date_of_birth" class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Date of Birth</label>
+                                <input id="date_of_birth" name="date_of_birth" type="date" required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all font-dm-sans">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="address" class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Address</label>
+                            <textarea id="address" name="address" rows="2" 
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all font-dm-sans resize-none"></textarea>
+                        </div>
+                        
+                        <!-- Emergency Contact -->
+                        <div class="border-t border-gray-200 pt-6">
+                            <h3 class="text-lg font-semibold font-dm-sans text-text-dark mb-4">Emergency Contact</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label for="emergency_contact" class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Contact Name</label>
+                                    <input id="emergency_contact" name="emergency_contact" type="text" 
+                                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all font-dm-sans">
+                                </div>
+                                <div>
+                                    <label for="emergency_phone" class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Contact Phone</label>
+                                    <input id="emergency_phone" name="emergency_phone" type="tel" 
+                                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all font-dm-sans">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Patient Card -->
+                        <div class="border-t border-gray-200 pt-6">
+                            <div>
+                                <label for="patient_card_number" class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Patient Card Number (Optional)</label>
+                                <input id="patient_card_number" name="patient_card_number" type="text" placeholder="Leave blank to auto-generate"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all font-dm-sans">
+                                <p class="mt-2 text-xs text-text-medium font-dm-sans">If left blank, a patient card number will be automatically generated</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="password" class="block text-sm font-medium font-dm-sans text-text-dark mb-2">Password</label>
+                            <input id="password" name="password" type="password" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all font-dm-sans">
+                        </div>
+
+                        <button type="submit" 
+                                class="w-full bg-gradient-primary text-white py-3 px-6 rounded-xl font-dm-sans font-semibold hover:shadow-soft transition-all transform hover:scale-105">
+                            <i class="fas fa-user-plus mr-2"></i>
+                            Create Account
+                        </button>
+                    </form>
+                    
+                    <div class="mt-6 text-center">
+                        <p class="text-text-medium font-dm-sans text-sm">
+                            Already have an account?
+                            <a href="{{ url_for('login') }}" class="text-primary font-semibold hover:underline">
+                                Sign In
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
