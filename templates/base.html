@@ -53,12 +53,12 @@
                 
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="{{ url_for('index') }}" class="text-text-medium hover:text-primary font-dm-sans font-medium transition-colors">Home</a>
-                    <a href="{{ url_for('services') }}" class="text-text-medium hover:text-primary font-dm-sans font-medium transition-colors">Services</a>
-                    <a href="{{ url_for('education') }}" class="text-text-medium hover:text-primary font-dm-sans font-medium transition-colors">Education</a>
                     <a href="{{ url_for('about') }}" class="text-text-medium hover:text-primary font-dm-sans font-medium transition-colors">About</a>
+                    <a href="{{ url_for('services') }}" class="text-text-medium hover:text-primary font-dm-sans font-medium transition-colors">Services</a>
                     <a href="{{ url_for('contact') }}" class="text-text-medium hover:text-primary font-dm-sans font-medium transition-colors">Contact</a>
                     
                     {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('education') }}" class="text-text-medium hover:text-primary font-dm-sans font-medium transition-colors">Education</a>
                         <a href="{{ url_for('dashboard') }}" class="text-text-medium hover:text-primary font-dm-sans font-medium transition-colors">Dashboard</a>
                         {% if current_user.is_admin %}
                             <a href="{{ url_for('admin_dashboard') }}" class="text-text-medium hover:text-primary font-dm-sans font-medium transition-colors">Admin</a>
@@ -83,12 +83,12 @@
         <div id="mobile-menu" class="hidden md:hidden bg-blue-700">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="{{ url_for('index') }}" class="text-white block px-3 py-2 hover:bg-blue-600">Home</a>
-                <a href="{{ url_for('services') }}" class="text-white block px-3 py-2 hover:bg-blue-600">Services</a>
-                <a href="{{ url_for('education') }}" class="text-white block px-3 py-2 hover:bg-blue-600">Education</a>
                 <a href="{{ url_for('about') }}" class="text-white block px-3 py-2 hover:bg-blue-600">About</a>
+                <a href="{{ url_for('services') }}" class="text-white block px-3 py-2 hover:bg-blue-600">Services</a>
                 <a href="{{ url_for('contact') }}" class="text-white block px-3 py-2 hover:bg-blue-600">Contact</a>
                 
                 {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('education') }}" class="text-white block px-3 py-2 hover:bg-blue-600">Education</a>
                     <a href="{{ url_for('dashboard') }}" class="text-white block px-3 py-2 hover:bg-blue-600">Dashboard</a>
                     {% if current_user.is_admin %}
                         <a href="{{ url_for('admin_dashboard') }}" class="text-white block px-3 py-2 hover:bg-blue-600">Admin</a>
@@ -173,47 +173,34 @@
             offset: 100
         });
         
-        // Carousel functionality
+        // Background carousel functionality for hero sections
         document.addEventListener('DOMContentLoaded', function() {
-            const carousel = document.getElementById('heroCarousel');
-            const indicators = document.querySelectorAll('.carousel-indicator');
-            let currentSlide = 0;
-            const totalSlides = 3;
+            const heroSections = document.querySelectorAll('.hero-carousel');
             
-            if (carousel && indicators.length > 0) {
-                // Auto-advance carousel
-                setInterval(() => {
-                    currentSlide = (currentSlide + 1) % totalSlides;
-                    updateCarousel();
-                }, 4000);
+            heroSections.forEach(section => {
+                const images = [
+                    'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+                    'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+                    'https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+                    'https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'
+                ];
                 
-                // Indicator click handlers
-                indicators.forEach((indicator, index) => {
-                    indicator.addEventListener('click', () => {
-                        currentSlide = index;
-                        updateCarousel();
-                    });
-                });
+                let currentIndex = 0;
                 
-                function updateCarousel() {
-                    const translateX = -currentSlide * 100;
-                    carousel.style.transform = `translateX(${translateX}%)`;
-                    
-                    // Update indicators
-                    indicators.forEach((indicator, index) => {
-                        if (index === currentSlide) {
-                            indicator.classList.add('active');
-                            indicator.style.backgroundColor = 'white';
-                        } else {
-                            indicator.classList.remove('active');
-                            indicator.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
-                        }
-                    });
+                function changeBackground() {
+                    section.style.backgroundImage = `linear-gradient(135deg, rgba(30, 113, 255, 0.8) 0%, rgba(138, 43, 226, 0.8) 100%), url('${images[currentIndex]}')`;
+                    section.style.backgroundSize = 'cover';
+                    section.style.backgroundPosition = 'center';
+                    section.style.backgroundAttachment = 'fixed';
+                    currentIndex = (currentIndex + 1) % images.length;
                 }
                 
-                // Initialize first slide
-                updateCarousel();
-            }
+                // Initialize first image
+                changeBackground();
+                
+                // Change background every 5 seconds
+                setInterval(changeBackground, 5000);
+            });
         });
         
         // Add smooth hover animations
