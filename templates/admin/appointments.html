@@ -115,25 +115,16 @@
                         <td class="px-6 py-4">
                             <div class="flex space-x-2">
                                 {% if appointment.status == 'pending' %}
-                                <form method="POST" action="{{ url_for('update_appointment_status', appointment_id=appointment.id) }}" style="display: inline;">
-                                    <input type="hidden" name="status" value="confirmed">
-                                    <button type="submit" class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm font-dm-sans hover:bg-green-600 transition-colors">
-                                        <i class="fas fa-check mr-1"></i>Confirm
-                                    </button>
-                                </form>
-                                <form method="POST" action="{{ url_for('update_appointment_status', appointment_id=appointment.id) }}" style="display: inline;">
-                                    <input type="hidden" name="status" value="cancelled">
-                                    <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-lg text-sm font-dm-sans hover:bg-red-600 transition-colors">
-                                        <i class="fas fa-times mr-1"></i>Cancel
-                                    </button>
-                                </form>
+                                <a href="{{ url_for('update_appointment_status', appointment_id=appointment.id, status='confirmed') }}" class="bg-green-500 text-white px-3 py-1 rounded-lg text-sm font-dm-sans hover:bg-green-600 transition-colors inline-block">
+                                    <i class="fas fa-check mr-1"></i>Confirm
+                                </a>
+                                <a href="{{ url_for('update_appointment_status', appointment_id=appointment.id, status='cancelled') }}" class="bg-red-500 text-white px-3 py-1 rounded-lg text-sm font-dm-sans hover:bg-red-600 transition-colors inline-block">
+                                    <i class="fas fa-times mr-1"></i>Cancel
+                                </a>
                                 {% elif appointment.status == 'confirmed' %}
-                                <form method="POST" action="{{ url_for('update_appointment_status', appointment_id=appointment.id) }}" style="display: inline;">
-                                    <input type="hidden" name="status" value="completed">
-                                    <button type="submit" class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm font-dm-sans hover:bg-blue-600 transition-colors">
-                                        <i class="fas fa-check-circle mr-1"></i>Complete
-                                    </button>
-                                </form>
+                                <a href="{{ url_for('update_appointment_status', appointment_id=appointment.id, status='completed') }}" class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm font-dm-sans hover:bg-blue-600 transition-colors inline-block">
+                                    <i class="fas fa-check-circle mr-1"></i>Complete
+                                </a>
                                 {% endif %}
                                 <button onclick="openAppointmentModal('{{ appointment.id }}')" class="bg-gray-500 text-white px-3 py-1 rounded-lg text-sm font-dm-sans hover:bg-gray-600 transition-colors" 
                                         data-patient-name="{{ appointment.user.first_name }} {{ appointment.user.last_name }}"
