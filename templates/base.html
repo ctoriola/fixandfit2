@@ -190,7 +190,7 @@
                 let currentIndex = 0;
                 
                 function changeBackground() {
-                    section.style.backgroundImage = `linear-gradient(135deg, rgba(30, 113, 255, 0.8) 0%, rgba(138, 43, 226, 0.8) 100%), url('${images[currentIndex]}')`;
+                    section.style.backgroundImage = `url('${images[currentIndex]}')`;
                     section.style.backgroundSize = 'cover';
                     section.style.backgroundPosition = 'center';
                     // Use scroll for mobile devices to avoid performance issues with fixed attachment
