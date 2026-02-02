@@ -1,6 +1,6 @@
 # Fix and Fit - Healthcare Management System
 
-A modern Flask-based web application for managing prosthetics, orthotics, and podorthotics appointments and services.
+A modern Flask-based web application for managing prosthetics, orthotics, and pedorthotics appointments and services.
 
 ## Features
 
@@ -68,7 +68,7 @@ python app.py
 
 - Prosthetics Consultation
 - Orthotics Consultation  
-- Podorthotics Consultation
+- pedorthotics Consultation
 - Fitting Appointments
 - Follow-up Visits
 - Repair Services
