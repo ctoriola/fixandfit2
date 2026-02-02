@@ -2,6 +2,7 @@ import os
 import uuid
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask_mail import Mail, Message
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from datetime import datetime
@@ -11,6 +12,17 @@ from firebase_db import firebase_db
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your-secret-key-change-in-production')
+
+# Flask-Mail Configuration
+app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')
+app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
+app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', True)
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'fixfitponigeria@gmail.com')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', '')
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER', 'fixfitponigeria@gmail.com')
+
+mail = Mail(app)
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
@@ -85,6 +97,53 @@ def about():
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
+
+@app.route('/submit-contact', methods=['POST'])
+def submit_contact():
+    """Handle contact form submission and send email"""
+    try:
+        first_name = request.form.get('first_name', '').strip()
+        last_name = request.form.get('last_name', '').strip()
+        email = request.form.get('email', '').strip()
+        phone = request.form.get('phone', '').strip()
+        subject = request.form.get('subject', 'General Inquiry').strip()
+        message_text = request.form.get('message', '').strip()
+        
+        # Validate required fields
+        if not all([first_name, last_name, email, phone, message_text]):
+            flash('All fields are required', 'error')
+            return redirect(url_for('contact'))
+        
+        # Create the email message
+        msg = Message(
+            subject=f"Contact Form: {subject} - From {first_name} {last_name}",
+            recipients=['fixfitponigeria@gmail.com'],
+            reply_to=email,
+            body=f"""
+New Contact Form Submission:
+
+Name: {first_name} {last_name}
+Email: {email}
+Phone: {phone}
+Subject: {subject}
+
+Message:
+{message_text}
+
+---
+This email was sent from the Fix and Fit contact form.
+            """
+        )
+        
+        # Send the email
+        mail.send(msg)
+        flash('Message sent successfully! We will get back to you soon.', 'success')
+        
+    except Exception as e:
+        print(f"Error sending contact form email: {e}")
+        flash('Failed to send message. Please try again or contact us directly.', 'error')
+    
+    return redirect(url_for('contact'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
