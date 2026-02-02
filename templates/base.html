@@ -26,6 +26,10 @@
                         'text-medium': '#666666',
                         'text-light': '#999999',
                     },
+                    spacing: {
+                        '15': '3.75rem',
+                        '18': '4.5rem',
+                    },
                     backgroundImage: {
                         'gradient-primary': 'linear-gradient(135deg, #1e71ff 0%, #44aaff 100%)',
                         'gradient-accent': 'linear-gradient(135deg, #8a2be2 0%, #4169e1 100%)',
@@ -47,7 +51,7 @@
             <div class="flex justify-between h-20">
                 <div class="flex items-center">
                     <a href="{{ url_for('index') }}" class="flex items-center">
-                        <img src="{{ url_for('static', filename='fflogo.png') }}" alt="Fix and Fit Logo" class="h-12">
+                        <img src="{{ url_for('static', filename='fflogo.png') }}" alt="Fix and Fit Logo" class="h-18">
                     </a>
                 </div>
                 
@@ -125,7 +129,7 @@
         <div class="max-w-7xl mx-auto px-4 py-12">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
-                    <img src="{{ url_for('static', filename='fflogo.png') }}" alt="Fix and Fit Logo" class="h-12 mb-4">
+                    <img src="{{ url_for('static', filename='fflogo.png') }}" alt="Fix and Fit Logo" class="h-15 mb-4" style="filter: brightness(0) invert(1);">
                     <p class="text-gray-300">Making you fit again with personalized prosthetics, orthotics, and podorthotics solutions.</p>
                 </div>
                 <div>
