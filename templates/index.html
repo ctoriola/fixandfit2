@@ -188,6 +188,108 @@
 <section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold font-dm-sans text-text-dark mb-4">Our Services</h2>
+            <p class="text-xl text-text-medium font-dm-sans">Comprehensive prosthetic, orthotic, and podorthotic solutions tailored to your needs</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <!-- Orthopaedic Aids -->
+            <div class="bg-white rounded-2xl p-8 shadow-card hover:shadow-soft transition-all group border-t-4 border-gradient-primary">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-shield-alt text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold font-dm-sans text-text-dark">Orthopaedic Aids</h3>
+                </div>
+                <p class="text-text-medium font-dm-sans leading-relaxed">
+                    Specialized support devices designed to improve mobility and reduce pain in joints and skeletal structures.
+                </p>
+                <div class="mt-4 h-1 w-8 bg-gradient-primary rounded-lg"></div>
+            </div>
+            
+            <!-- Braces & Splints -->
+            <div class="bg-white rounded-2xl p-8 shadow-card hover:shadow-soft transition-all group border-t-4 border-gradient-accent">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-gradient-accent rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-wrench text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold font-dm-sans text-text-dark">Braces & Splints</h3>
+                </div>
+                <p class="text-text-medium font-dm-sans leading-relaxed">
+                    Custom-made braces and splints for injury prevention, support, and rehabilitation of various body parts.
+                </p>
+                <div class="mt-4 h-1 w-8 bg-gradient-accent rounded-lg"></div>
+            </div>
+            
+            <!-- Rehabilitation Devices -->
+            <div class="bg-white rounded-2xl p-8 shadow-card hover:shadow-soft transition-all group border-t-4 border-gradient-primary">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-dumbbell text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold font-dm-sans text-text-dark">Rehabilitation Devices</h3>
+                </div>
+                <p class="text-text-medium font-dm-sans leading-relaxed">
+                    Advanced equipment supporting patient recovery and rehabilitation following injury or surgical procedures.
+                </p>
+                <div class="mt-4 h-1 w-8 bg-gradient-primary rounded-lg"></div>
+            </div>
+            
+            <!-- Hi-Tech Prosthetics -->
+            <div class="bg-white rounded-2xl p-8 shadow-card hover:shadow-soft transition-all group border-t-4 border-gradient-accent">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-gradient-accent rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-microchip text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold font-dm-sans text-text-dark">Hi-Tech Prosthetics & Orthotics</h3>
+                </div>
+                <p class="text-text-medium font-dm-sans leading-relaxed">
+                    Advanced microprocessor-controlled prosthetics and orthotics for enhanced functionality and natural movement.
+                </p>
+                <div class="mt-4 h-1 w-8 bg-gradient-accent rounded-lg"></div>
+            </div>
+            
+            <!-- Silicone Cosmetic Prosthesis -->
+            <div class="bg-white rounded-2xl p-8 shadow-card hover:shadow-soft transition-all group border-t-4 border-gradient-primary">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-eye text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold font-dm-sans text-text-dark">Silicone Cosmetic Prosthesis</h3>
+                </div>
+                <p class="text-text-medium font-dm-sans leading-relaxed">
+                    Highly realistic silicone prostheses for facial features, crafted for natural appearance and confidence.
+                </p>
+                <div class="mt-4 h-1 w-8 bg-gradient-primary rounded-lg"></div>
+            </div>
+            
+            <!-- Medical Tourism -->
+            <div class="bg-white rounded-2xl p-8 shadow-card hover:shadow-soft transition-all group border-t-4 border-gradient-accent">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-gradient-accent rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-globe text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold font-dm-sans text-text-dark">Medical Tourism</h3>
+                </div>
+                <p class="text-text-medium font-dm-sans leading-relaxed">
+                    World-class prosthetic and orthotic services with international standards for patients worldwide.
+                </p>
+                <div class="mt-4 h-1 w-8 bg-gradient-accent rounded-lg"></div>
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <a href="{{ url_for('services') }}" class="bg-gradient-primary text-white px-10 py-4 rounded-lg text-lg font-dm-sans font-semibold hover:shadow-soft transition-all transform hover:scale-105 inline-block">
+                <i class="fas fa-arrow-right mr-2"></i>View All Services
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Section -->
+<section class="py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-16">
             <h2 class="text-4xl font-bold font-dm-sans text-text-dark mb-4">Why Choose Fix and Fit?</h2>
             <p class="text-xl text-text-medium font-dm-sans">Experience the difference with our comprehensive approach</p>
         </div>
