@@ -3,6 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}Fix and Fit provides world-class prosthetics, orthotics, pedorthotics, and compression therapy solutions. Expert care with 15+ years of experience serving patients worldwide.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}prosthetics, orthotics, pedorthotics, compression therapy, medical devices, prosthetic limbs, orthotic support, healthcare, rehabilitation, Abuja Nigeria{% endblock %}">
+    <meta name="author" content="Fix and Fit">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:url" content="{% block og_url %}https://fixandfit.com{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}Fix and Fit - Making You Fit Again{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Professional prosthetics, orthotics, and pedorthotics solutions with world-class expert care.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{{ url_for('static', filename='fflogo.png') }}{% endblock %}">
+    <meta property="og:site_name" content="Fix and Fit">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{% block twitter_url %}https://fixandfit.com{% endblock %}">
+    <meta property="twitter:title" content="{% block twitter_title %}Fix and Fit - Making You Fit Again{% endblock %}">
+    <meta property="twitter:description" content="{% block twitter_description %}Professional prosthetics, orthotics, and pedorthotics solutions with world-class expert care.{% endblock %}">
+    <meta property="twitter:image" content="{% block twitter_image %}{{ url_for('static', filename='fflogo.png') }}{% endblock %}">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{% block canonical %}https://fixandfit.com{% endblock %}">
+    
     <title>{% block title %}Fix and Fit - Making You Fit Again{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
