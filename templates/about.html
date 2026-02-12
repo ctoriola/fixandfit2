@@ -331,85 +331,97 @@
         <div class="grid grid-cols-12 gap-4 h-auto">
             <!-- Large image - spans 6 columns on desktop, full width on mobile -->
             <div class="col-span-12 lg:col-span-6 row-span-2">
-                <div class="relative h-64 lg:h-96 rounded-3xl overflow-hidden shadow-card hover:shadow-soft transition-all group">
-                    <img src="{{ url_for('static', filename='images/7.jpeg') }}" 
-                         alt="Modern prosthetic fitting room" 
-                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 text-white">
-                        <h3 class="text-xl font-bold font-dm-sans mb-2">Modern Fitting Room</h3>
-                        <p class="font-dm-sans opacity-90">State-of-the-art equipment for precise measurements</p>
+                <a href="{{ url_for('static', filename='images/7.jpeg') }}" class="glightbox" data-gallery="about-gallery">
+                    <div class="relative h-64 lg:h-96 rounded-3xl overflow-hidden shadow-card hover:shadow-soft transition-all group cursor-pointer">
+                        <img src="{{ url_for('static', filename='images/7.jpeg') }}" 
+                             alt="Modern prosthetic fitting room" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 text-white">
+                            <h3 class="text-xl font-bold font-dm-sans mb-2">Modern Fitting Room</h3>
+                            <p class="font-dm-sans opacity-90">State-of-the-art equipment for precise measurements</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             
             <!-- Medium image - top right -->
             <div class="col-span-12 lg:col-span-6">
-                <div class="relative h-48 rounded-3xl overflow-hidden shadow-card hover:shadow-soft transition-all group">
-                    <img src="{{ url_for('static', filename='images/8.jpeg') }}" 
-                         alt="Advanced impression taking and molding technology" 
-                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <h3 class="text-lg font-bold font-dm-sans mb-1">Advanced Impression Taking</h3>
-                        <p class="text-sm font-dm-sans opacity-90">Precision molding technology</p>
+                <a href="{{ url_for('static', filename='images/8.jpeg') }}" class="glightbox" data-gallery="about-gallery">
+                    <div class="relative h-48 rounded-3xl overflow-hidden shadow-card hover:shadow-soft transition-all group cursor-pointer">
+                        <img src="{{ url_for('static', filename='images/8.jpeg') }}" 
+                             alt="Advanced impression taking and molding technology" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <h3 class="text-lg font-bold font-dm-sans mb-1">Advanced Impression Taking</h3>
+                            <p class="text-sm font-dm-sans opacity-90">Precision molding technology</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             
             <!-- Two smaller images - bottom right -->
             <div class="col-span-6 lg:col-span-3">
-                <div class="relative h-48 rounded-3xl overflow-hidden shadow-card hover:shadow-soft transition-all group">
-                    <img src="{{ url_for('static', filename='images/9.jpeg') }}" 
-                         alt="Expert team consultation" 
-                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <h3 class="text-lg font-bold font-dm-sans mb-1">Expert Team</h3>
-                        <p class="text-sm font-dm-sans opacity-90">Certified professionals</p>
+                <a href="{{ url_for('static', filename='images/9.jpeg') }}" class="glightbox" data-gallery="about-gallery">
+                    <div class="relative h-48 rounded-3xl overflow-hidden shadow-card hover:shadow-soft transition-all group cursor-pointer">
+                        <img src="{{ url_for('static', filename='images/9.jpeg') }}" 
+                             alt="Expert team consultation" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <h3 class="text-lg font-bold font-dm-sans mb-1">Expert Team</h3>
+                            <p class="text-sm font-dm-sans opacity-90">Certified professionals</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             
             <div class="col-span-6 lg:col-span-3">
-                <div class="relative h-48 rounded-3xl overflow-hidden shadow-card hover:shadow-soft transition-all group">
-                    <img src="{{ url_for('static', filename='images/10.jpeg') }}" 
-                         alt="Custom prosthetic manufacturing" 
-                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <h3 class="text-lg font-bold font-dm-sans mb-1">Manufacturing</h3>
-                        <p class="text-sm font-dm-sans opacity-90">Custom creation process</p>
+                <a href="{{ url_for('static', filename='images/10.jpeg') }}" class="glightbox" data-gallery="about-gallery">
+                    <div class="relative h-48 rounded-3xl overflow-hidden shadow-card hover:shadow-soft transition-all group cursor-pointer">
+                        <img src="{{ url_for('static', filename='images/10.jpeg') }}" 
+                             alt="Custom prosthetic manufacturing" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <h3 class="text-lg font-bold font-dm-sans mb-1">Manufacturing</h3>
+                            <p class="text-sm font-dm-sans opacity-90">Custom creation process</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             
             <!-- Wide image at bottom -->
             <div class="col-span-12 lg:col-span-8">
-                <div class="relative h-64 rounded-3xl overflow-hidden shadow-card hover:shadow-soft transition-all group">
-                    <img src="{{ url_for('static', filename='images/11.jpeg') }}" 
-                         alt="Patient rehabilitation and training area" 
-                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 text-white">
-                        <h3 class="text-2xl font-bold font-dm-sans mb-2">Rehabilitation Center</h3>
-                        <p class="font-dm-sans opacity-90">Comprehensive training and adaptation programs</p>
+                <a href="{{ url_for('static', filename='images/11.jpeg') }}" class="glightbox" data-gallery="about-gallery">
+                    <div class="relative h-64 rounded-3xl overflow-hidden shadow-card hover:shadow-soft transition-all group cursor-pointer">
+                        <img src="{{ url_for('static', filename='images/11.jpeg') }}" 
+                             alt="Patient rehabilitation and training area" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 text-white">
+                            <h3 class="text-2xl font-bold font-dm-sans mb-2">Rehabilitation Center</h3>
+                            <p class="font-dm-sans opacity-90">Comprehensive training and adaptation programs</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             
             <!-- Vertical image -->
             <div class="col-span-12 lg:col-span-4">
-                <div class="relative h-64 rounded-3xl overflow-hidden shadow-card hover:shadow-soft transition-all group">
-                    <img src="{{ url_for('static', filename='images/12.jpeg') }}" 
-                         alt="Quality assurance and testing" 
-                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 text-white">
-                        <h3 class="text-lg font-bold font-dm-sans mb-1">Quality Assurance</h3>
-                        <p class="text-sm font-dm-sans opacity-90">Rigorous testing protocols</p>
+                <a href="{{ url_for('static', filename='images/12.jpeg') }}" class="glightbox" data-gallery="about-gallery">
+                    <div class="relative h-64 rounded-3xl overflow-hidden shadow-card hover:shadow-soft transition-all group cursor-pointer">
+                        <img src="{{ url_for('static', filename='images/12.jpeg') }}" 
+                             alt="Quality assurance and testing" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 text-white">
+                            <h3 class="text-lg font-bold font-dm-sans mb-1">Quality Assurance</h3>
+                            <p class="text-sm font-dm-sans opacity-90">Rigorous testing protocols</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
         

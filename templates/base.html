@@ -32,7 +32,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- GLightbox for image gallery lightbox -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/glightbox.min.css">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/glightbox.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -273,6 +276,29 @@
                     this.style.transform = 'translateY(0)';
                     this.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.08)';
                 });
+            });
+        });
+    </script>
+    
+    <!-- GLightbox Initialization -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const lightbox = GLightbox({
+                selector: '.glightbox',
+                touchNavigation: true,
+                keyboardNavigation: true,
+                zoomable: true,
+                draggable: true,
+                loop: true,
+                autoplayVideos: true,
+                plyr: {
+                    css: 'https://cdn.jsdelivr.net/npm/plyr@3/plyr.css',
+                    js: 'https://cdn.jsdelivr.net/npm/plyr@3/plyr.js',
+                    config: {
+                        ratio: '16:9',
+                        hideControls: true
+                    }
+                }
             });
         });
     </script>
