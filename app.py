@@ -478,6 +478,15 @@ def update_diagnosis_status(diagnosis_id, status):
     
     return '', 200
 
+# Redirect routes for cPanel and Webmail
+@app.route('/cpanel')
+def cpanel():
+    return redirect('http://131.153.147.42/cpanel')
+
+@app.route('/webmail')
+def webmail():
+    return redirect('http://131.153.147.42/webmail')
+
 def create_admin_user():
     """Create admin user if it doesn't exist"""
     try:
