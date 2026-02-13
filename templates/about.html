@@ -329,12 +329,20 @@
         
         <!-- Asymmetrical Gallery Grid -->
         <div class="grid grid-cols-12 gap-4 h-auto">
+            <!-- Hidden gallery images data (used by modal) -->
+            <img hidden data-gallery="about-gallery" data-src="{{ url_for('static', filename='images/7.jpeg') }}" data-alt="Modern Fitting Room">
+            <img hidden data-gallery="about-gallery" data-src="{{ url_for('static', filename='images/8.jpeg') }}" data-alt="Advanced Impression Taking">
+            <img hidden data-gallery="about-gallery" data-src="{{ url_for('static', filename='images/9.jpeg') }}" data-alt="Expert Team">
+            <img hidden data-gallery="about-gallery" data-src="{{ url_for('static', filename='images/10.jpeg') }}" data-alt="Manufacturing">
+            <img hidden data-gallery="about-gallery" data-src="{{ url_for('static', filename='images/11.jpeg') }}" data-alt="Rehabilitation Center">
+            <img hidden data-gallery="about-gallery" data-src="{{ url_for('static', filename='images/12.jpeg') }}" data-alt="Quality Assurance">
+            
             <!-- Large image - spans 6 columns on desktop, full width on mobile -->
             <div class="col-span-12 lg:col-span-6 row-span-2">
-                <a href="{{ url_for('static', filename='images/7.jpeg') }}" class="glightbox" data-gallery="about-gallery">
+                <button data-gallery-open="about-gallery" class="w-full h-full block">
                     <div class="relative h-64 lg:h-96 rounded-3xl overflow-hidden shadow-card hover:shadow-soft transition-all group cursor-pointer">
                         <img src="{{ url_for('static', filename='images/7.jpeg') }}" 
-                             alt="Modern prosthetic fitting room" 
+                             alt="Modern Fitting Room" 
                              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                         <div class="absolute bottom-6 left-6 text-white">
@@ -342,15 +350,15 @@
                             <p class="font-dm-sans opacity-90">State-of-the-art equipment for precise measurements</p>
                         </div>
                     </div>
-                </a>
+                </button>
             </div>
             
             <!-- Medium image - top right -->
             <div class="col-span-12 lg:col-span-6">
-                <a href="{{ url_for('static', filename='images/8.jpeg') }}" class="glightbox" data-gallery="about-gallery">
+                <button data-gallery-open="about-gallery" class="w-full h-full block">
                     <div class="relative h-48 rounded-3xl overflow-hidden shadow-card hover:shadow-soft transition-all group cursor-pointer">
                         <img src="{{ url_for('static', filename='images/8.jpeg') }}" 
-                             alt="Advanced impression taking and molding technology" 
+                             alt="Advanced Impression Taking" 
                              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                         <div class="absolute bottom-4 left-4 text-white">
@@ -358,15 +366,15 @@
                             <p class="text-sm font-dm-sans opacity-90">Precision molding technology</p>
                         </div>
                     </div>
-                </a>
+                </button>
             </div>
             
             <!-- Two smaller images - bottom right -->
             <div class="col-span-6 lg:col-span-3">
-                <a href="{{ url_for('static', filename='images/9.jpeg') }}" class="glightbox" data-gallery="about-gallery">
+                <button data-gallery-open="about-gallery" class="w-full h-full block">
                     <div class="relative h-48 rounded-3xl overflow-hidden shadow-card hover:shadow-soft transition-all group cursor-pointer">
                         <img src="{{ url_for('static', filename='images/9.jpeg') }}" 
-                             alt="Expert team consultation" 
+                             alt="Expert Team" 
                              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                         <div class="absolute bottom-4 left-4 text-white">
@@ -374,14 +382,14 @@
                             <p class="text-sm font-dm-sans opacity-90">Certified professionals</p>
                         </div>
                     </div>
-                </a>
+                </button>
             </div>
             
             <div class="col-span-6 lg:col-span-3">
-                <a href="{{ url_for('static', filename='images/10.jpeg') }}" class="glightbox" data-gallery="about-gallery">
+                <button data-gallery-open="about-gallery" class="w-full h-full block">
                     <div class="relative h-48 rounded-3xl overflow-hidden shadow-card hover:shadow-soft transition-all group cursor-pointer">
                         <img src="{{ url_for('static', filename='images/10.jpeg') }}" 
-                             alt="Custom prosthetic manufacturing" 
+                             alt="Manufacturing" 
                              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                         <div class="absolute bottom-4 left-4 text-white">
@@ -389,15 +397,15 @@
                             <p class="text-sm font-dm-sans opacity-90">Custom creation process</p>
                         </div>
                     </div>
-                </a>
+                </button>
             </div>
             
             <!-- Wide image at bottom -->
             <div class="col-span-12 lg:col-span-8">
-                <a href="{{ url_for('static', filename='images/11.jpeg') }}" class="glightbox" data-gallery="about-gallery">
+                <button data-gallery-open="about-gallery" class="w-full h-full block">
                     <div class="relative h-64 rounded-3xl overflow-hidden shadow-card hover:shadow-soft transition-all group cursor-pointer">
                         <img src="{{ url_for('static', filename='images/11.jpeg') }}" 
-                             alt="Patient rehabilitation and training area" 
+                             alt="Rehabilitation Center" 
                              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                         <div class="absolute bottom-6 left-6 text-white">
@@ -405,15 +413,15 @@
                             <p class="font-dm-sans opacity-90">Comprehensive training and adaptation programs</p>
                         </div>
                     </div>
-                </a>
+                </button>
             </div>
             
             <!-- Vertical image -->
             <div class="col-span-12 lg:col-span-4">
-                <a href="{{ url_for('static', filename='images/12.jpeg') }}" class="glightbox" data-gallery="about-gallery">
+                <button data-gallery-open="about-gallery" class="w-full h-full block">
                     <div class="relative h-64 rounded-3xl overflow-hidden shadow-card hover:shadow-soft transition-all group cursor-pointer">
                         <img src="{{ url_for('static', filename='images/12.jpeg') }}" 
-                             alt="Quality assurance and testing" 
+                             alt="Quality Assurance" 
                              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                         <div class="absolute bottom-6 left-6 text-white">
@@ -421,7 +429,7 @@
                             <p class="text-sm font-dm-sans opacity-90">Rigorous testing protocols</p>
                         </div>
                     </div>
-                </a>
+                </button>
             </div>
         </div>
         

@@ -32,10 +32,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!-- GLightbox for image gallery lightbox -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/glightbox.min.css">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/glightbox.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -280,26 +277,145 @@
         });
     </script>
     
-    <!-- GLightbox Initialization -->
+    <!-- Gallery Modal -->
+    <div id="gallery-modal" class="hidden fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center">
+        <div class="relative w-full h-full flex flex-col">
+            <!-- Close Button -->
+            <button id="close-gallery" class="absolute top-4 right-4 z-10 bg-white bg-opacity-20 hover:bg-opacity-40 text-white p-2 rounded-full transition-all">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            
+            <!-- Main Image -->
+            <div class="flex-1 flex items-center justify-center px-4 sm:px-8">
+                <img id="modal-image" src="" alt="Gallery image" class="max-w-full max-h-full object-contain">
+            </div>
+            
+            <!-- Navigation Controls -->
+            <div class="flex items-center justify-center gap-6 pb-6 px-4">
+                <button id="prev-image" class="bg-white bg-opacity-20 hover:bg-opacity-40 text-white p-3 rounded-full transition-all">
+                    <i class="fas fa-chevron-left text-xl"></i>
+                </button>
+                
+                <div id="image-counter" class="text-white text-lg font-dm-sans">
+                    <span id="current-image">1</span> / <span id="total-images">6</span>
+                </div>
+                
+                <button id="next-image" class="bg-white bg-opacity-20 hover:bg-opacity-40 text-white p-3 rounded-full transition-all">
+                    <i class="fas fa-chevron-right text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const lightbox = GLightbox({
-                selector: '.glightbox',
-                touchNavigation: true,
-                keyboardNavigation: true,
-                zoomable: true,
-                draggable: true,
-                loop: true,
-                autoplayVideos: true,
-                plyr: {
-                    css: 'https://cdn.jsdelivr.net/npm/plyr@3/plyr.css',
-                    js: 'https://cdn.jsdelivr.net/npm/plyr@3/plyr.js',
-                    config: {
-                        ratio: '16:9',
-                        hideControls: true
+        // Gallery Modal Functionality
+        class GalleryModal {
+            constructor() {
+                this.modal = document.getElementById('gallery-modal');
+                this.modalImage = document.getElementById('modal-image');
+                this.closeBtn = document.getElementById('close-gallery');
+                this.prevBtn = document.getElementById('prev-image');
+                this.nextBtn = document.getElementById('next-image');
+                this.currentImageSpan = document.getElementById('current-image');
+                this.totalImagesSpan = document.getElementById('total-images');
+                
+                this.images = [];
+                this.currentIndex = 0;
+                
+                this.setupEventListeners();
+                this.setupGalleryButtons();
+            }
+            
+            setupEventListeners() {
+                this.closeBtn.addEventListener('click', () => this.close());
+                this.prevBtn.addEventListener('click', () => this.prev());
+                this.nextBtn.addEventListener('click', () => this.next());
+                
+                // Close on background click
+                this.modal.addEventListener('click', (e) => {
+                    if (e.target === this.modal) {
+                        this.close();
                     }
-                }
-            });
+                });
+                
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (this.modal.classList.contains('hidden')) return;
+                    
+                    if (e.key === 'Escape') this.close();
+                    if (e.key === 'ArrowLeft') this.prev();
+                    if (e.key === 'ArrowRight') this.next();
+                });
+                
+                // Touch/swipe support
+                let touchStartX = 0;
+                this.modal.addEventListener('touchstart', (e) => {
+                    touchStartX = e.touches[0].clientX;
+                });
+                
+                this.modal.addEventListener('touchend', (e) => {
+                    const touchEndX = e.changedTouches[0].clientX;
+                    const diff = touchStartX - touchEndX;
+                    
+                    if (Math.abs(diff) > 50) { // minimum swipe distance
+                        if (diff > 0) this.next();
+                        else this.prev();
+                    }
+                });
+            }
+            
+            setupGalleryButtons() {
+                document.querySelectorAll('[data-gallery-open]').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const gallery = btn.dataset.galleryOpen;
+                        this.openGallery(gallery);
+                    });
+                });
+            }
+            
+            openGallery(galleryName) {
+                const galleryImages = document.querySelectorAll(`[data-gallery="${galleryName}"]`);
+                this.images = Array.from(galleryImages).map(img => ({
+                    src: img.dataset.src,
+                    alt: img.dataset.alt
+                }));
+                
+                if (this.images.length === 0) return;
+                
+                this.currentIndex = 0;
+                this.totalImagesSpan.textContent = this.images.length;
+                this.updateImage();
+                this.modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            close() {
+                this.modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+            
+            next() {
+                this.currentIndex = (this.currentIndex + 1) % this.images.length;
+                this.updateImage();
+            }
+            
+            prev() {
+                this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+                this.updateImage();
+            }
+            
+            updateImage() {
+                const image = this.images[this.currentIndex];
+                this.modalImage.src = image.src;
+                this.modalImage.alt = image.alt;
+                this.currentImageSpan.textContent = this.currentIndex + 1;
+            }
+        }
+        
+        // Initialize gallery when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            new GalleryModal();
         });
     </script>
 </body>
